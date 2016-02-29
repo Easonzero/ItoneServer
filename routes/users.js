@@ -15,6 +15,7 @@ router.post('/login', function(req, res, next) {
 
 router.post('/userinfo',function(req,res,next){
   var user = req.session.user[0];
+  console.log(JSON.stringify(user));
   res.send(JSON.stringify(user));
 });
 

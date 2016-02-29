@@ -4,15 +4,22 @@ var router = express.Router();
 
 /* GET books listing. */
 router.get('/search', function(req, res, next) {
-  var json = dao.search(req.body);
-  console.log(req.body);
-  res.json(json);
+  dao.search(req.query,function(result){
+    res.send(result);
+  });
 });
 
 router.get('/booklist',function(req,res,next){
-  var json = dao.booklist(req.body);
-  console.log(req.body);
-  res.json(json);
+  dao.booklist(req.query,function(result){
+    res.send(result);
+  });
 });
+
+router.get('/download',function(req,res,next){
+  console.log(req.query.id)
+  dao.geturl(req.query.id,function(result){
+    res.download(result.url);
+  })
+})
 
 module.exports = router;
