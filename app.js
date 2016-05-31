@@ -5,14 +5,9 @@ var logger = require('morgan');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var books = require('./routes/books');
-var message = require('./routes/message');
-var advice = require('./routes/advice');
-var QA = require('./routes/QA');
-
 var app = express();
+
+var routes = require('./routes');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,29 +30,7 @@ app.use(session({
     }
 }));
 
-/*app.use(function (req, res, next) {
-    var url = req.originalUrl;
-    var checkurl = (url != "/users/login"&&url != "/"
-    &&url != "/users/register"&&url != "");
-    if (checkurl && !req.session.user) {
-        return res.send('no login');
-    }
-    next();
-});*/
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/books',books);
-app.use('/advice',books);
-app.use('/message',books);
-app.use('/QA',books);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+routes(app);
 
 // error handlers
 

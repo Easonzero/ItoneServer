@@ -1,11 +1,6 @@
-var dao = require('./dao');
-var express = require('express');
-var router = express.Router();
+var controller = require('../controllers/adviceManager');
+var router = require('express').Router();
 
-router.post('/', function(req, res, next) {
-  dao.advicedao.send(req.query,function(result){
-    res.send(result);
-  });
-});
+router.post('/', controller.advice);
 
 module.exports = router;

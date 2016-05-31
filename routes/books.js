@@ -1,30 +1,12 @@
-var dao = require('./dao');
-var express = require('express');
-var router = express.Router();
+var controller = require('../controllers/bookManager');
+var router = require('express').Router();
 
-/* GET books listing. */
-router.get('/search', function(req, res, next) {
-  dao.bookdao.search(req.query,function(result){
-    res.send(result);
-  });
-});
+router.get('/search', controller.search);
 
-router.get('/booklist',function(req,res,next){
-  dao.bookdao.booklist(req.query,function(result){
-    res.send(result);
-  });
-});
+router.get('/booklist',controller.booksBySubject);
 
-router.get('/download',function(req,res,next){
-  dao.bookdao.geturl(req.query.id,function(result){
-    res.download(result.url);
-  })
-});
+router.get('/download',controller.download);
 
-router.get('/booksbyuser',function(req,res,next){
-  dao.bookdao.booksbyuser(req.query,function(result){
-    res.send(result.url);
-  })
-});
+router.get('/booksbyuser',controller.booksByUser);
 
 module.exports = router;
