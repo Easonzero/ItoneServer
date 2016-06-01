@@ -13,7 +13,7 @@ function initConfig() {
         mysqlConfig       : {
             "host"      : "127.0.0.1",
             "user"      : "root",
-            "password"  : "wangyi601466673",
+            "password"  : "123",
             "database"  : "itone"
         },
 

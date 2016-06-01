@@ -4,8 +4,10 @@ var mysqlClient = require("../utils/sqlUtil");
  */
 exports.findBookByName = function (findItem, callback) {
     mysqlClient.query({
-        sql     : "SELECT id,bookName,category,subject,occupation,fromUniversity,count,downloadNumber,uploader,pic," +
-        "FROM bookdata WHERE bookName LIKE :bookName AND fromUniversity = :fromUniversity",
+        sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
+                "b.downloadNumber,u.userName as uploader,b.picture " +
+                "FROM books as b join user as u on b.uid = u.id " +
+                "WHERE b.bookName LIKE :bookName AND b.fromUniversity = :fromUniversity",
         params  : findItem
     }, function (err, rows) {
         if (err) {
@@ -18,8 +20,10 @@ exports.findBookByName = function (findItem, callback) {
 
 exports.findBookBySubject = function (findItem, callback) {
     mysqlClient.query({
-        sql     : "SELECT id,bookName,category,subject,occupation,fromUniversity,count,downloadNumber,uploader,pic," +
-        "FROM bookdata WHERE subject = :subject AND fromUniversity = :fromUniversity LIMIT :start,10",
+        sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
+                "b.downloadNumber,u.userName as uploader,b.pic," +
+                "FROM books as b join user as u on b.uid = u.id " +
+                "WHERE b.subject = :subject AND b.fromUniversity = :fromUniversity LIMIT :start,10",
         params  : findItem
     }, function (err, rows) {
         if (err) {
@@ -32,8 +36,9 @@ exports.findBookBySubject = function (findItem, callback) {
 
 exports.findBookByUploader = function (findItem, callback) {
     mysqlClient.query({
-        sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count,b.downloadNumber,u.userName as uploader,b.pic," +
-        "FROM bookdata as b join userinfo as u on b.uid = u.id WHERE u.id = :uid",
+        sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
+                "b.downloadNumber,u.userName as uploader,b.pic," +
+                "FROM bookdata as b join userinfo as u on b.uid = u.id WHERE u.id = :uid",
         params  : findItem
     }, function (err, rows) {
         if (err) {
@@ -53,6 +58,6 @@ exports.getBookUrl = function (id, callback) {
             return callback(err, null);
         }
 
-        callback(null, rows);
+        callback(null, rows[0]);
     });
 };

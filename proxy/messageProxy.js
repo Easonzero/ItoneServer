@@ -4,7 +4,7 @@ var mysqlClient = require("../utils/sqlUtil");
  */
 exports.addMessage = function (messageItem, callback) {
     mysqlClient.query({
-        sql     : "INSERT INTO message VALUE(:uid, :message, :date, :category)",
+        sql     : "INSERT INTO message VALUE(:uid, :message, :date, :category, :receiver, :recCategory)",
         params  : messageItem
     }, function (err, rows) {
         if (err) {
@@ -17,7 +17,7 @@ exports.addMessage = function (messageItem, callback) {
 
 exports.findMessage = function (messageItem, callback) {
     mysqlClient.query({
-        sql     : "SELECT * FROM message WHERE uid = :uid and date > :date",
+        sql     : "SELECT * FROM message WHERE recCategory = :recCategory and receiver = :receiver and date > :date",
         params  : messageItem
     }, function (err, rows) {
         if (err) {
