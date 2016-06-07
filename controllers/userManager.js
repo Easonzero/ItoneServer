@@ -46,13 +46,13 @@ exports.login = function(req, res) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
     
-    proxy.login(body,function(err,result){
+    proxy.login(req.body,function(err,result){
         if (err||result.length === 0) {
             return res.send(config.statusCode.STATUS_ERROR);
         }
-        req.session.user = user[0];
+        req.session.user = result;
         req.session.identify = 'student';
-        return res.send(config.statusCode.STATUS_OK);
+        return res.send(req.cookies)//config.statusCode.STATUS_OK);
     });
 };
 
@@ -92,12 +92,15 @@ exports.modify = function(req,res){
 };
 
 exports.baseInfo = function(req,res){
+    if (!req.session||!req.session.user) {
+        return res.send(config.statusCode.STATUS_ERROR);
+    }
     var user = req.session.user;
     res.send(JSON.stringify(user));
 };
 
 exports.plusInfo = function(req,res){
-    if (!req.session) {
+    if (!req.session||!req.session.user) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
     if(req.session.userPlu){
@@ -127,9 +130,9 @@ exports.measureRank = function(req,res){
 };
 
 exports.logout = function(req,res){
-    req.session.destory();
+    req.session.destroy();
     res.clearCookie();
-    return res.redirect("/login");
+    return res.redirect("/users/login");
 };
 
 exports.sortUsers = function(req,res){

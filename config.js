@@ -3,19 +3,19 @@ function initConfig() {
 
         default_max_conns : 50,
 
-        // mysqlConfig       : {
-        //     "host"      : "172.16.206.16",
-        //     "user"      : "root",
-        //     "password"  : "wangyi601466673",
-        //     "database"  : "itone"
-        // },
-
         mysqlConfig       : {
-            "host"      : "127.0.0.1",
-            "user"      : "root",
-            "password"  : "123",
-            "database"  : "itone"
+              "host"      : "119.29.229.214",
+              "user"      : "root",
+              "password"  : "wangyi601466673",
+              "database"  : "itone"
         },
+
+        //mysqlConfig       : {
+        //    "host"      : "127.0.0.1",
+        //    "user"      : "root",
+        //    "password"  : "123",
+        //    "database"  : "itone"
+        //},
 
         statusCode        : {
             STATUS_OK              : 'ok',

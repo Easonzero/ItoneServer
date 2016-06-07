@@ -29,7 +29,7 @@ exports.findIssue = function (QA,callback) {
 exports.createIssue = function (issueItem,callback) {
     mysqlClient.query({
         sql     : "INSERT INTO tribune VALUE(:QA, :Qid, :id, :message)",
-        params  : null
+        params  : issueItem
     }, function (err, rows) {
         if (err) {
             return callback(new ServerError(), null);

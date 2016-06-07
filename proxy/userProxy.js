@@ -27,7 +27,7 @@ exports.findUserById = function (userId, callback) {
         sql     : "SELECT * FROM user WHERE id = :id",
         params  : {id:userId}
     }, function (err, rows) {
-        if (err) {
+        if (err || !rows) {
             return callback(new ServerError(), null);
         }
         callback(null, rows[0]);
@@ -42,37 +42,33 @@ exports.getPluInfo = function (userId, callback) {
     }
 
     mysqlClient.query({
-        sql     : "SELECT u.id,u.money,u.course,SUM(b.downloadNumber) as downloadNum" +
+        sql     : "SELECT u.id,u.money,SUM(b.downloadNumber) as downloadNum" +
                 "FROM userplus as u join books as b on b.uid = u.id WHERE u.id = :id",
         params  : {id:userId}
     }, function (err, rows) {
-        if (err) {
+        if (err || !rows) {
             return callback(new ServerError(), null);
         }
         callback(null, rows[0]);
     });
 };
 
-exports.login = function (userId, callback) {
-    userId = userId || "";
+exports.login = function (userInfo, callback) {
+    userInfo.id = userInfo.id || "";
+    userInfo.passWords = userInfo.passWords || "";
 
-    if (userId.length === 0) {
+    if (userInfo.id === 0||userInfo.passWords === 0) {
         return callback(new InvalidParamError(), null);
     }
 
     mysqlClient.query({
         sql     : "SELECT * FROM user WHERE id = :id and passWords = :passWords",
-        params  : {id:userId}
+        params  : {id:userInfo.id,passWords:userInfo.passWords}
     }, function (err, rows) {
         if (err || !rows) {
             return callback(new ServerError(), null);
         }
-
-        if (rows.length > 0) {
-            callback(null, rows[0]);
-        } else {
-            callback(null, null);
-        }
+        callback(null, rows[0]);
     });
 };
 
@@ -81,17 +77,37 @@ exports.create = function(userInfo, callback){
         return callback(new InvalidParamError(), null);
     }
 
-    mysqlClient.query({
-        sql     : "INSERT INTO user VALUES(:id, :passWords, :studentNo, :universityNo, :uName)",
-        params  : userInfo
-    },  function (err, rows) {
-        if (err || !rows || rows.affectedRows === 0) {
-            console.dir(rows);
-            return callback(new ServerError(), null);
-        }
+    mysqlClient.processTransaction((connection)=>{
+      connection.beginTransaction((err)=>{
+            if (err) { throw err; }
+            connection.query('INSERT INTO user VALUES(:id, :passWords, :userName, :fromUniversity, :faculty, :grade, :picture)',
+                userInfo, (err, result)=>{
+                if (err) {
+                    connection.rollback(function() {
+                        throw err;
+                    });
+                }
 
-        return callback(null, null);
-    });
+                connection.query('INSERT INTO userPlus VALUES(:id,0,0)', {id:userInfo.id}, (err, result)=>{
+                    if (err) {
+                        connection.rollback(function() {
+                            throw err;
+                        });
+                    }
+                    connection.commit((err)=>{
+                        if (err) {
+                            connection.rollback(function() {
+                                throw err;
+                            });
+                        }
+                        if (err || !rows || rows.affectedRows === 0) {
+                            return callback(new ServerError(), null);
+                        }
+                        return callback(null, null);
+                    });
+                });
+            });
+    })
 };
 
 exports.checkUserExists = function(userId, callback) {

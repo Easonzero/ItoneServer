@@ -4,7 +4,7 @@ var books = require('./routes/books');
 var message = require('./routes/message');
 var homework = require('./routes/homework');
 var advice = require('./routes/advice');
-var tribune = require('./routes/tribune');
+//var tribune = require('./routes/tribune');
 var constvar = require('./routes/constvar');
 
 module.exports = function(app){
@@ -26,7 +26,7 @@ module.exports = function(app){
   app.use('/advice',advice);
   app.use('/message',message);
   app.use('/homework',homework);
-  app.use('/QA',tribune);
+  //app.use('/QA',tribune);
   app.use('/base',constvar);
 
   // catch 404 and forward to error handler
