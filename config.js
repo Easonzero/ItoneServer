@@ -4,7 +4,7 @@ function initConfig() {
         default_max_conns : 50,
 
         mysqlConfig       : {
-              "host"      : "119.29.229.214",
+              "host"      : "127.0.0.1",
               "user"      : "root",
               "password"  : "wangyi601466673",
               "database"  : "itone"
