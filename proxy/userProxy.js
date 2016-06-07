@@ -81,33 +81,34 @@ exports.create = function(userInfo, callback){
       connection.beginTransaction((err)=>{
             if (err) { throw err; }
             connection.query('INSERT INTO user VALUES(:id, :passWords, :userName, :fromUniversity, :faculty, :grade, :picture)',
-                userInfo, (err, result)=>{
-                if (err) {
-                    connection.rollback(function() {
-                        throw err;
-                    });
-                }
+              userInfo, (err, result)=>{
+              if (err) {
+                  connection.rollback(function() {
+                      throw err;
+                  });
+              }
 
-                connection.query('INSERT INTO userPlus VALUES(:id,0,0)', {id:userInfo.id}, (err, result)=>{
-                    if (err) {
-                        connection.rollback(function() {
-                            throw err;
-                        });
-                    }
-                    connection.commit((err)=>{
-                        if (err) {
-                            connection.rollback(function() {
-                                throw err;
-                            });
-                        }
-                        if (err || !rows || rows.affectedRows === 0) {
-                            return callback(new ServerError(), null);
-                        }
-                        return callback(null, null);
-                    });
-                });
+              connection.query('INSERT INTO userPlus VALUES(:id,0,0)', {id:userInfo.id}, (err, result)=>{
+                  if (err) {
+                      connection.rollback(function() {
+                          throw err;
+                      });
+                  }
+                  connection.commit((err)=>{
+                      if (err) {
+                          connection.rollback(function() {
+                              throw err;
+                          });
+                      }
+                      if (err || !rows || rows.affectedRows === 0) {
+                          return callback(new ServerError(), null);
+                      }
+                      return callback(null, null);
+                  });
             });
-    })
+          });
+    });
+  });
 };
 
 exports.checkUserExists = function(userId, callback) {
