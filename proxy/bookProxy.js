@@ -19,14 +19,18 @@ exports.findBookByName = function (findItem, callback) {
 };
 
 exports.findBookBySubject = function (findItem, callback) {
+    findItem.start = parseInt(findItem.start);
+    let sql = "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
+                "b.downloadNumber,u.userName as uploader,b.picture " +
+                "FROM books as b join user as u on b.uid = u.id ";
+    if(findItem.subject == '*') sql += "WHERE b.fromUniversity = :fromUniversity LIMIT :start,10";
+    else sql += "WHERE b.subject = :subject AND b.fromUniversity = :fromUniversity LIMIT :start,10";
     mysqlClient.query({
-        sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
-                "b.downloadNumber,u.userName as uploader,b.pic " +
-                "FROM books as b join user as u on b.uid = u.id " +
-                "WHERE b.subject = :subject AND b.fromUniversity = :fromUniversity LIMIT :start,10",
+        sql     : sql,
         params  : findItem
     }, function (err, rows) {
         if (err) {
+            console.log(err);
             return callback(DBError(), null);
         }
 
