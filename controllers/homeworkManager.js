@@ -6,6 +6,7 @@ var config = require('../config').initConfig();
 exports.sendHomework = function(req, res) {
     proxy.addHomework(req.query,function (err,result) {
         if (err) {
+            res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(config.statusCode.STATUS_ERROR);
@@ -15,6 +16,7 @@ exports.sendHomework = function(req, res) {
 exports.getHomework = function(req, res) {
     proxy.findHomework(req.query,function (err,result) {
         if (err) {
+            res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);

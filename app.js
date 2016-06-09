@@ -6,7 +6,9 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
+const config = require('./config').initConfig();
 
+let errorHandler = require("./common/errorHandler");
 let routes = require('./routes');
 
 // view engine setup
@@ -20,14 +22,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-    secret: '123456',
-    resave: false,
-    saveUninitialized: true,
-    cookie:{
-        maxAge: 1000*60*30
-    }
-}));
+app.use(session(
+    config.sessionConfig
+));
 
 routes(app);
 
@@ -43,6 +40,7 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
+  errorHandler.appErrorProcess(app);
 }
 
 // production error handler

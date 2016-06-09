@@ -8,7 +8,7 @@ exports.addAdvice = function (adviceItem, callback) {
         params  : adviceItem
     }, function (err, rows) {
         if (err) {
-            return callback(ServerError(), null);
+            return callback(DBError(), null);
         }
 
         callback(null, null);

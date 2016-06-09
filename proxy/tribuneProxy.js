@@ -8,7 +8,7 @@ exports.findQuestions = function (questionItem,callback) {
         params  : questionItem
     }, function (err, rows) {
         if (err) {
-            return callback(new ServerError(), null);
+            return callback(new DBError(), null);
         }
         callback(null, rows);
     });
@@ -20,7 +20,7 @@ exports.findIssue = function (QA,callback) {
         params  : {QA:QA}
     }, function (err, rows) {
         if (err) {
-            return callback(new ServerError(), null);
+            return callback(new DBError(), null);
         }
         callback(null, rows);
     });
@@ -32,7 +32,7 @@ exports.createIssue = function (issueItem,callback) {
         params  : issueItem
     }, function (err, rows) {
         if (err) {
-            return callback(new ServerError(), null);
+            return callback(new DBError(), null);
         }
         callback(null, null);
     });

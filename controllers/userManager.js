@@ -51,8 +51,7 @@ exports.login = function(req, res) {
             return res.send(config.statusCode.STATUS_ERROR);
         }
         req.session.user = result;
-        req.session.identify = 'student';
-        return res.send(req.cookies)//config.statusCode.STATUS_OK);
+        return res.send(config.statusCode.STATUS_OK);
     });
 };
 
@@ -110,6 +109,7 @@ exports.plusInfo = function(req,res){
 
     proxy.getPluInfo(id,function(err,result){
         if (err||result.length === 0) {
+            res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         req.session.userPlu = result;
@@ -118,15 +118,34 @@ exports.plusInfo = function(req,res){
 };
 
 exports.measureRank = function(req,res){
-    if (!req.session||!req.session.userPlu) {
+    if (!req.session||!req.session.user) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
-    proxy.getRank(req.session.userPlu.downloadNum,req.session.identify,function(err,result){
-        if (err||result.length === 0) {
-            return res.send(config.statusCode.STATUS_ERROR);
-        }
-        return res.send(result);
-    });
+    if(!req.session.userPlu){
+        var id = req.session.user.id;
+        proxy.getPluInfo(id,function(err,result){
+            if (err||result.length === 0) {
+                res.statusCode = err.statusCode;
+                return res.send(config.statusCode.STATUS_ERROR);
+            }
+            req.session.userPlu = result;
+            proxy.getRank(result.downloadNum,function(err,result){
+                if (err) {
+                    res.statusCode = err.statusCode;
+                    return res.send(config.statusCode.STATUS_ERROR);
+                }
+                return res.send(result);
+            });
+        });
+    }else{
+        proxy.getRank(req.session.userPlu.downloadNum,function(err,result){
+            if (err||result.length === 0) {
+                res.statusCode = err.statusCode;
+                return res.send(config.statusCode.STATUS_ERROR);
+            }
+            return res.send(result);
+        });
+    }
 };
 
 exports.logout = function(req,res){
@@ -136,14 +155,28 @@ exports.logout = function(req,res){
 };
 
 exports.sortUsers = function(req,res){
-    if(!global.studentlist&&(Date.now()-global.STUDENTLIST_TIMESTUMP)>3600000){
+    if(!global.studentlist){
         proxy.getUsersByOrder(function(err,result){
             if (err||result.length === 0) {
+                res.statusCode = err.statusCode;
                 return res.send(config.statusCode.STATUS_ERROR);
             }
             global.studentlist = result;
             global.STUDENTLIST_TIMESTUMP = Date.now();
+            return res.send(global.studentlist);
         });
     }
-    return res.send(global.studentlist);
+    else{
+        if((Date.now()-global.STUDENTLIST_TIMESTUMP)>3600000){
+            proxy.getUsersByOrder(function(err,result){
+                if (err||result.length === 0) {
+                    res.statusCode = err.statusCode;
+                    return res.send(config.statusCode.STATUS_ERROR);
+                }
+                global.studentlist = result;
+                global.STUDENTLIST_TIMESTUMP = Date.now();
+            });
+        }
+        return res.send(global.studentlist);
+    }
 };

@@ -24,7 +24,6 @@ function register(done){
     };
 
     app.test().request('post','/users/register').setBody(param).end(function (res) {
-        console.log(res.body);
         done();
     });
 }
@@ -36,39 +35,42 @@ function login(done,callback){
     };
 
     app.test().request('post','/users/login').setBody(param).end((res)=>{
-        console.log(res.body)
-        callback(done);
+        let session = res.headers['set-cookie'];
+        callback(session,done);
     });
 }
 
 function userbaseinfo(done){
-    login(done,(done)=>{
-        app.test().request('post','/users/userbaseinfo').end((res)=>{
-            console.log(res.body);
+    login(done,(session,done)=>{
+        app.test().request('post','/users/userbaseinfo').set('Cookie',session).end((res)=>{
+            console.dir(res.body);
             done();
         });
     });
 }
 
 function userelseinfo(done){
-    login(done,(done)=>{
-        app.test().request('post','/users/userelseinfo').end((res)=>{
+    login(done,(session,done)=>{
+        app.test().request('post','/users/userelseinfo').set('Cookie',session).end((res)=>{
+            console.dir(res.body);
             done();
         });
     });
 }
 
 function getrank(done){
-    login(done,(done)=>{
-        app.test().request('get','/users/getrank').end((res)=>{
+    login(done,(session,done)=>{
+        app.test().request('get','/users/getrank').set('Cookie',session).end((res)=>{
+            console.dir(res.body);
             done();
         });
     });
 }
 
 function usersbyorder(done){
-    login(done,(done)=>{
-        app.test().request('get','/users/usersbyorder').end((res)=>{
+    login(done,(session,done)=>{
+        app.test().request('get','/users/usersbyorder').set('Cookie',session).end((res)=>{
+            console.dir(res.body);
             done();
         });
     });

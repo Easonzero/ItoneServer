@@ -8,7 +8,7 @@ exports.addHomework = function (homeworkItem, callback) {
         params  : homeworkItem
     }, function (err, rows) {
         if (err) {
-            return callback(ServerError(), null);
+            return callback(DBError(), null);
         }
 
         callback(null, null);
@@ -22,7 +22,7 @@ exports.findHomework = function (homeworkItem, callback) {
         params  : homeworkItem
     }, function (err, rows) {
         if (err) {
-            return callback(ServerError(), null);
+            return callback(DBError(), null);
         }
 
         callback(null, rows);

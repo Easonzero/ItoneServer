@@ -6,6 +6,7 @@ var config = require('../config').initConfig();
 exports.university = function(req, res) {
     proxy.findAllUniversity(function (err,result) {
         if (err) {
+            res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);
@@ -15,6 +16,7 @@ exports.university = function(req, res) {
 exports.course = function(req, res) {
     proxy.findAllUniversity(req.query.fromUniversity,function (err,result) {
         if (err) {
+            res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);

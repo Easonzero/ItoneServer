@@ -3,27 +3,49 @@ function initConfig() {
 
         default_max_conns : 50,
 
-        mysqlConfig       : {
+        /*mysqlConfig       : {
               "host"      : "127.0.0.1",
               "user"      : "root",
               "password"  : "wangyi601466673",
               "database"  : "itone"
-        },
+        },*/
 
-        //mysqlConfig       : {
-        //    "host"      : "127.0.0.1",
-        //    "user"      : "root",
-        //    "password"  : "123",
-        //    "database"  : "itone"
-        //},
+        mysqlConfig       : {
+            "host"      : "127.0.0.1",
+            "user"      : "root",
+            "password"  : "123",
+            "database"  : "itone"
+        },
+        
+        sessionConfig     : {
+            secret      : '123456',
+            resave      : false,
+            saveUninitialized: true,
+            cookie      :{
+                maxAge: 1000*60*30
+            }
+        },
 
         statusCode        : {
             STATUS_OK              : 'ok',
-            STATUS_ERROR           : 'error'
+            STATUS_ERROR           : 'error',
+            STATUS_NOTFOUND           : 1, 
+            STATUS_SERVER_ERROR       : 2,
+            STATUS_INVAILD_PARAMS     : 3,
+            STATUS_DBERROR            : 4
         },
+
+        mailConfig      : {
+            host: "smtp.qq.com", // 主机
+            secureConnection: true, // 使用 SSL
+            port: 465, // SMTP 端口
+            auth: {
+                user: "451114984@qq.com", // 账号
+                pass: "WangYi601466673" // 密码
+            }
+        }
     };
     return configInfo;
 }
 
-//exports
 exports.initConfig = initConfig;

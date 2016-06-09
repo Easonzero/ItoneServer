@@ -8,7 +8,7 @@ exports.findAllUniversity = function (callback) {
         params  : null
     }, function (err, result) {
         if (err||result.length===0) {
-            return callback(ServerError(), null);
+            return callback(DBError(), null);
         }
 
         callback(null, result);
@@ -21,7 +21,7 @@ exports.findUniversity = function (id, callback) {
         params  : {id:id}
     }, function (err, result) {
         if (err||result.length===0) {
-            return callback(ServerError(), null);
+            return callback(DBError(), null);
         }
 
         callback(null, result[0]);
@@ -34,7 +34,7 @@ exports.findCourseByUniversity = function (fromUniversity, callback) {
         params  : {fromUniversity:fromUniversity}
     }, function (err, result) {
         if (err||result.length===0) {
-            return callback(ServerError(), null);
+            return callback(DBError(), null);
         }
 
         callback(null, result);

@@ -6,6 +6,7 @@ var config = require('../config').initConfig();
 exports.sendMessage = function(req, res) {
     proxy.addMessage(req.query,function (err,result) {
         if (err) {
+            res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(config.statusCode.STATUS_OK);
@@ -15,6 +16,7 @@ exports.sendMessage = function(req, res) {
 exports.getMessage = function(req, res) {
     proxy.findMessage(req.query,function (err,result) {
         if (err) {
+            res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);
