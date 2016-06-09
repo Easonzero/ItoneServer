@@ -7,8 +7,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
 const config = require('./config').initConfig();
-
-let errorHandler = require("./common/errorHandler");
 let routes = require('./routes');
 
 // view engine setup
@@ -28,8 +26,6 @@ app.use(session(
 
 routes(app);
 
-// error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -40,7 +36,6 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
-  errorHandler.appErrorProcess(app);
 }
 
 // production error handler

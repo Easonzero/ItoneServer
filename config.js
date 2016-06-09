@@ -33,16 +33,6 @@ function initConfig() {
             STATUS_SERVER_ERROR       : 2,
             STATUS_INVAILD_PARAMS     : 3,
             STATUS_DBERROR            : 4
-        },
-
-        mailConfig      : {
-            host: "smtp.qq.com", // 主机
-            secureConnection: true, // 使用 SSL
-            port: 465, // SMTP 端口
-            auth: {
-                user: "451114984@qq.com", // 账号
-                pass: "WangYi601466673" // 密码
-            }
         }
     };
     return configInfo;
