@@ -5,9 +5,9 @@ router.post('/login', controller.login);
 
 router.post('/modify',controller.modify);
 
-router.post('/userbaseinfo',controller.baseInfo);
+router.get('/userbaseinfo',controller.baseInfo);
 
-router.post('/userelseinfo',controller.plusInfo);
+router.get('/userelseinfo',controller.plusInfo);
 
 router.get("/getrank",controller.measureRank);
 

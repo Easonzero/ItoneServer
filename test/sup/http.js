@@ -41,9 +41,6 @@ Request.prototype.write = function(data){
 Request.prototype.request = function(method, path){
     this.method = method;
     this.path = path;
-    this.header['cookie'] = `connect.sid=s%3AEipCY9kgREWn9LHG2lEDDSBZgesbEDRj.JkgbvmcJ9cGjMaZwj1jsa%2F8i%2BoYc2rGRbjR34WBzTOs`;
-    this.header['secret'] = '123456';
-    this.header['Connection'] = 'keep-alive';
     return this;
 };
 

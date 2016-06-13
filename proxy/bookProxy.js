@@ -3,15 +3,17 @@ var mysqlClient = require("../utils/sqlUtil");
  * Created by eason on 5/30/16.
  */
 exports.findBookByName = function (findItem, callback) {
+    findItem.bookName = '%' + findItem.bookName + '%';
+
     mysqlClient.query({
         sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
-                "b.downloadNumber,u.userName as uploader,b.pic " +
+                "b.downloadNumber,u.userName as uploader,b.money,b.pic " +
                 "FROM books as b join user as u on b.uid = u.id " +
                 "WHERE b.bookName LIKE :bookName AND b.fromUniversity = :fromUniversity",
         params  : findItem
     }, function (err, rows) {
         if (err) {
-            return callback(DBError(), null);
+            return callback(new DBError(), null);
         }
 
         callback(null, rows);
@@ -22,7 +24,7 @@ exports.findBookBySubject = function (findItem, callback) {
     let start = parseInt(findItem.start);
     let end = start + 10;
     let sql = 'SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count,' +
-                'b.downloadNumber,u.userName as uploader,b.pic ' +
+                'b.downloadNumber,u.userName as uploader,b.money,b.pic ' +
                 'FROM books as b join user as u on b.uid = u.id ';
     if(findItem.subject == '*') sql += 'WHERE b.fromUniversity = :fromUniversity LIMIT '+start+','+end;
     else sql += 'WHERE b.subject = :subject AND b.fromUniversity = :fromUniversity LIMIT '+start+','+end;
@@ -32,7 +34,7 @@ exports.findBookBySubject = function (findItem, callback) {
     }, function (err, rows) {
         if (err) {
             console.log(err);
-            return callback(DBError(), null);
+            return callback(new DBError(), null);
         }
 
         callback(null, rows);
@@ -42,27 +44,65 @@ exports.findBookBySubject = function (findItem, callback) {
 exports.findBookByUploader = function (findItem, callback) {
     mysqlClient.query({
         sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
-                "b.downloadNumber,u.userName as uploader,b.pic " +
-                "FROM bookdata as b join userinfo as u on b.uid = u.id WHERE u.id = :uid",
+                "b.downloadNumber,u.userName as uploader,b.money,b.money,b.pic " +
+                "FROM books as b join user as u on b.uid = u.id WHERE u.id = :uid",
         params  : findItem
     }, function (err, rows) {
         if (err) {
-            return callback(DBError(), null);
+            return callback(new DBError(), null);
         }
 
         callback(null, rows);
     });
 };
 
-exports.getBookUrl = function (id, callback) {
+exports.checkMoney = function(downloadItem,callback){
     mysqlClient.query({
-        sql     : "SELECT url FROM bookdata WHERE id = :id",
-        params  : {id:id}
+        sql     : "SELECT * FROM books as b join userplus as u on u.id = :uid " +
+        "WHERE b.id = :id and b.money <= u.money",
+        params  : downloadItem
     }, function (err, rows) {
         if (err) {
-            return callback(DBError(), null);
+            return callback(err, null);
         }
 
-        callback(null, rows[0]);
+        callback(null, rows.length!==0);
+    });
+};
+
+exports.download = function (downloadItem, callback) {
+    mysqlClient.processTransaction(function (connection) {
+        connection.beginTransaction(function(err) {
+            if (err) { throw err; }
+            connection.query('SELECT url FROM books WHERE id = :id', downloadItem, function(err, url) {
+                if (err) {
+                    connection.rollback(function() {
+                        throw err;
+                    });
+                }
+
+                connection.query('UPDATE books as b join userplus as u on b.uid = u.id ' +
+                    'join userplus as mu on mu.id = :uid ' +
+                    'SET b.downloadNumber = b.downloadNumber + 1,u.downloadNum = u.downloadNum + 1,' +
+                    'mu.money = mu.money - b.money,u.money = u.money + 1 ' +
+                    'WHERE b.id = :id', downloadItem, function(err, effect) {
+                    if (err) {
+                        connection.rollback(function() {
+                            throw err;
+                        });
+                    }
+
+                    connection.commit(function(err) {
+                        if (err) {
+                            connection.rollback(function() {
+                                throw err;
+                            });
+                        }
+                        callback(null,url[0]);
+                    });
+                });
+            });
+        });
+
     });
 };

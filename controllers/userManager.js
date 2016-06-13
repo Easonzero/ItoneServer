@@ -14,7 +14,7 @@ exports.create = function(req,res){
 
     ep.once("after_parseFrom",function(fields, files) {
         var userinfo = JSON.parse(fields.userinfo[0]);
-        proxy.checkUserExists(userInfo.id, ep.doneLater("after_checkUserExists"));
+        proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists", function (isUserExist) {
             if (!isUserExist) {
@@ -63,7 +63,7 @@ exports.modify = function(req,res){
 
     ep.once("after_parseFrom",function(fields, files) {
         var userinfo = JSON.parse(fields.userinfo[0]);
-        proxy.checkUserExists(userInfo.id, ep.doneLater("after_checkUserExists"));
+        proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists", function (isUserExist) {
             if (isUserExist) {
@@ -95,7 +95,7 @@ exports.baseInfo = function(req,res){
         return res.send(config.statusCode.STATUS_ERROR);
     }
     var user = req.session.user;
-    res.send(JSON.stringify(user));
+    res.send(user);
 };
 
 exports.plusInfo = function(req,res){
@@ -107,7 +107,7 @@ exports.plusInfo = function(req,res){
     }
     var id = req.session.user.id;
 
-    proxy.getPluInfo(id,function(err,result){
+    proxy.getPluInfo({id:id},function(err,result){
         if (err||result.length === 0) {
             res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
@@ -123,13 +123,13 @@ exports.measureRank = function(req,res){
     }
     if(!req.session.userPlu){
         var id = req.session.user.id;
-        proxy.getPluInfo(id,function(err,result){
+        proxy.getPluInfo({id:id},function(err,result){
             if (err||result.length === 0) {
                 res.statusCode = err.statusCode;
                 return res.send(config.statusCode.STATUS_ERROR);
             }
             req.session.userPlu = result;
-            proxy.getRank(result.downloadNum,function(err,result){
+            proxy.getRank({downloadNum:result.downloadNum},function(err,result){
                 if (err) {
                     res.statusCode = err.statusCode;
                     return res.send(config.statusCode.STATUS_ERROR);
@@ -138,7 +138,7 @@ exports.measureRank = function(req,res){
             });
         });
     }else{
-        proxy.getRank(req.session.userPlu.downloadNum,function(err,result){
+        proxy.getRank({downloadNum:req.session.userPlu.downloadNum},function(err,result){
             if (err||result.length === 0) {
                 res.statusCode = err.statusCode;
                 return res.send(config.statusCode.STATUS_ERROR);

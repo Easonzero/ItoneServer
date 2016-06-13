@@ -8,6 +8,18 @@ var advice = require('./routes/advice');
 var constvar = require('./routes/constvar');
 
 module.exports = function(app){
+  //转换json
+  app.use(function (req, res, next) {
+    if(req.body){
+      let json = {};
+      for(let key in req.body){
+        json[key] = req.body[key];
+      }
+      req.body = json;
+    }
+    next();
+  });
+  
   //check islogin
   /*app.use(function (req, res, next) {
       var url = req.originalUrl;

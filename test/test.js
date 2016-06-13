@@ -1,9 +1,13 @@
 const app = require('../app');
 const controllers = [
-    require('./controllers/users')
+    //require('./controllers/users'),
+    //require('./controllers/books'),
+    //require('./controllers/message'),
+    //require('./controllers/homework'),
+    require('./controllers/constvar')
 ];
 /**
- * Created by eason on 5/6/16.
+ * Created by eason on 5/6/16
  */
 
 before((done)=>app.listen(3000, done));

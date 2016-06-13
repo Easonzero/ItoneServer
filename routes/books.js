@@ -1,12 +1,12 @@
 var controller = require('../controllers/bookManager');
 var router = require('express').Router();
 
-router.get('/search', controller.search);
+router.post('/search', controller.search);
 
-router.get('/booklist',controller.booksBySubject);
+router.post('/booklist',controller.booksBySubject);
 
-router.get('/download',controller.download);
+router.post('/download',controller.download);
 
-router.get('/booksbyuser',controller.booksByUser);
+router.post('/userbooks',controller.userbooks);
 
 module.exports = router;
