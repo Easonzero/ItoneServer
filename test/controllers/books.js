@@ -5,10 +5,10 @@ const app = require('../../app');
 exports.describe = 'book test';
 
 exports.it = {
-    'search':search,
-    'booklist':booklist,
-    //'download':download,
-    'userbooks':userbooks
+    //'search':search,
+    //'booklist':booklist,
+    'download':download,
+    //'userbooks':userbooks
 };
 
 function search(done){

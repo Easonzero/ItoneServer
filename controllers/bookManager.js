@@ -1,5 +1,6 @@
 var proxy = require('../proxy/bookProxy');
 var config = require('../config').initConfig();
+var path = require('path');
 /**
  * Created by eason on 5/30/16.
  */
@@ -46,7 +47,7 @@ exports.download = function(req, res) {
                 res.statusCode = 404;
                 return res.send(config.statusCode.STATUS_ERROR);
             }
-            return res.download(result.url);
+            return res.download(__dirname + '/../' + result.url);
         });
     });
 };
