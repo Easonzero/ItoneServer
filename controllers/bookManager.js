@@ -40,14 +40,20 @@ exports.download = function(req, res) {
     proxy.checkMoney(req.body,function(err,result){
         if(!result) {
             res.statusCode = 404;
+	    console.log('money');
             return res.send(config.statusCode.STATUS_ERROR);
         }
         proxy.download(req.body,function (err,result) {
             if (err) {
                 res.statusCode = 404;
+		console.log('download');
                 return res.send(config.statusCode.STATUS_ERROR);
             }
-            return res.download(__dirname + '/../' + result.url);
+            return res.send(result.url);
         });
     });
 };
+
+exports.transport = function(req,res) {
+    return res.download(__dirname + '/../' + req.body.url);
+}
