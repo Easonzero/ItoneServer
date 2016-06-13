@@ -42,7 +42,7 @@ function login(done,callback){
 
 function userbaseinfo(done){
     login(done,(session,done)=>{
-        app.test().request('post','/users/userbaseinfo').set('Cookie',session).end((res)=>{
+        app.test().request('get','/users/userbaseinfo').set('Cookie',session).end((res)=>{
             console.dir(res.body);
             done();
         });
@@ -51,7 +51,7 @@ function userbaseinfo(done){
 
 function userelseinfo(done){
     login(done,(session,done)=>{
-        app.test().request('post','/users/userelseinfo').set('Cookie',session).end((res)=>{
+        app.test().request('get','/users/userelseinfo').set('Cookie',session).end((res)=>{
             console.dir(res.body);
             done();
         });

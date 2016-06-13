@@ -3,18 +3,20 @@ var config = require('../config').initConfig();
 /**
  * Created by eason on 5/30/16.
  */
-exports.search = function(req, res, next) {
-    proxy.findBookByName(req.query,function (err,result) {
+exports.search = function(req, res) {
+
+    proxy.findBookByName(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
-            return res.send(onfig.statusCode.STATUS_ERROR);
+            return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);
     });
+    
 };
 
-exports.booksBySubject = function(req, res, next) {
-    proxy.findBookBySubject(req.query,function (err,result) {
+exports.booksBySubject = function(req, res) {
+    proxy.findBookBySubject(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
@@ -23,8 +25,8 @@ exports.booksBySubject = function(req, res, next) {
     });
 };
 
-exports.booksByUser = function(req, res, next) {
-    proxy.findBookByUploader(req.query,function (err,result) {
+exports.userbooks = function(req, res) {
+    proxy.findBookByUploader(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
@@ -33,12 +35,18 @@ exports.booksByUser = function(req, res, next) {
     });
 };
 
-exports.download = function(req, res, next) {
-    proxy.download(req.query,function (err,result) {
-        if (err) {
-            res.statusCode = err.statusCode;
+exports.download = function(req, res) {
+    proxy.checkMoney(req.body,function(err,result){
+        if(!result) {
+            res.statusCode = 404;
             return res.send(config.statusCode.STATUS_ERROR);
         }
-        return res.download(result.url);
+        proxy.download(req.body,function (err,result) {
+            if (err) {
+                res.statusCode = 404;
+                return res.send(config.statusCode.STATUS_ERROR);
+            }
+            return res.download(result.url);
+        });
     });
 };

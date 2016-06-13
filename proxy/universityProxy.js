@@ -7,7 +7,7 @@ exports.findAllUniversity = function (callback) {
         sql     : "SELECT * FROM university",
         params  : null
     }, function (err, result) {
-        if (err||result.length===0) {
+        if (err||!result) {
             return callback(DBError(), null);
         }
 
@@ -18,9 +18,9 @@ exports.findAllUniversity = function (callback) {
 exports.findUniversity = function (id, callback) {
     mysqlClient.query({
         sql     : "SELECT * FROM university WHERE id = :id",
-        params  : {id:id}
+        params  : id
     }, function (err, result) {
-        if (err||result.length===0) {
+        if (err||!result) {
             return callback(DBError(), null);
         }
 
@@ -31,9 +31,22 @@ exports.findUniversity = function (id, callback) {
 exports.findCourseByUniversity = function (fromUniversity, callback) {
     mysqlClient.query({
         sql     : "SELECT * FROM course WHERE fromUniversity = :fromUniversity",
-        params  : {fromUniversity:fromUniversity}
+        params  : fromUniversity
     }, function (err, result) {
-        if (err||result.length===0) {
+        if (err||!result) {
+            return callback(DBError(), null);
+        }
+
+        callback(null, result);
+    });
+};
+
+exports.findClassByUniversity = function (fromUniversity, callback) {
+    mysqlClient.query({
+        sql     : "SELECT * FROM class WHERE fromUniversity = :fromUniversity",
+        params  : fromUniversity
+    }, function (err, result) {
+        if (err||!result) {
             return callback(DBError(), null);
         }
 
