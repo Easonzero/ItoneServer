@@ -7,7 +7,7 @@ exports.findBookByName = function (findItem, callback) {
 
     mysqlClient.query({
         sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
-                "b.downloadNumber,u.userName as uploader,b.money,b.pic " +
+                "b.downloadNumber,u.userName as uploader,b.uid,b.money,b.pic " +
                 "FROM books as b join user as u on b.uid = u.id " +
                 "WHERE b.bookName LIKE :bookName AND b.fromUniversity = :fromUniversity",
         params  : findItem
@@ -24,7 +24,7 @@ exports.findBookBySubject = function (findItem, callback) {
     let start = parseInt(findItem.start);
     let end = start + 10;
     let sql = 'SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count,' +
-                'b.downloadNumber,u.userName as uploader,b.money,b.pic ' +
+                'b.downloadNumber,u.userName as uploader,b.uid,b.money,b.pic ' +
                 'FROM books as b join user as u on b.uid = u.id ';
     if(findItem.subject == '*') sql += 'WHERE b.fromUniversity = :fromUniversity LIMIT '+start+','+end;
     else sql += 'WHERE b.subject = :subject AND b.fromUniversity = :fromUniversity LIMIT '+start+','+end;
@@ -44,7 +44,7 @@ exports.findBookBySubject = function (findItem, callback) {
 exports.findBookByUploader = function (findItem, callback) {
     mysqlClient.query({
         sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +
-                "b.downloadNumber,u.userName as uploader,b.money,b.money,b.pic " +
+                "b.downloadNumber,u.userName as uploader,b.uid,b.money,b.money,b.pic " +
                 "FROM books as b join user as u on b.uid = u.id WHERE u.id = :uid",
         params  : findItem
     }, function (err, rows) {
