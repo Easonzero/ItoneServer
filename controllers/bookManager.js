@@ -43,7 +43,7 @@ exports.download = function(req, res) {
             return res.send(config.statusCode.STATUS_ERROR);
         }
         
-        return res.download(__dirname + '/../' + req.body.url,(error)=>{
+        return res.download(__dirname + '/../' + result,(error)=>{
             if(error) {
                 console.log(error);
             }
