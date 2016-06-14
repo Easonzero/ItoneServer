@@ -70,7 +70,7 @@ exports.checkMoney = function(downloadItem,callback){
     });
 };
 
-exports.download = function (downloadItem, callback) {
+exports.update = function (downloadItem, callback) {
     mysqlClient.processTransaction(function (connection) {
         connection.beginTransaction(function(err) {
             if (err) { throw err; }
