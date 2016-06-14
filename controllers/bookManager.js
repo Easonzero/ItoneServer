@@ -42,18 +42,20 @@ exports.download = function(req, res) {
             res.statusCode = 404;
             return res.send(config.statusCode.STATUS_ERROR);
         }
-        
-        return res.download(__dirname + '/../' + result,(error)=>{
-            if(error) {
-                console.log(error);
-            }
-            else{
-                proxy.update(req.body,function (err,result) {
-                    if (err) {
-                        console.log(error);
-                    }
-                });
-            }
-        });
+
+	proxy.getUrl(req.body,function(err,url){
+	    return res.download(__dirname + '/../' + url,(error)=>{
+                if(error) {
+                    console.log(error);
+                }
+                else{
+                    proxy.update(req.body,function (err,result) {
+                        if (err) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+	});
     });
 };

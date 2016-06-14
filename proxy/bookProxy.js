@@ -70,39 +70,32 @@ exports.checkMoney = function(downloadItem,callback){
     });
 };
 
+exports.getUrl = function (downloadItem,callback) {
+    mysqlClient.query({
+        sql     : 'SELECT url FROM books WHERE id = :id',
+        params  : downloadItem
+    }, function (err, rows) {
+        if (err) {
+            return callback(err, null);
+        }
+
+        callback(null, rows[0]);
+    });
+}
+
 exports.update = function (downloadItem, callback) {
-    mysqlClient.processTransaction(function (connection) {
-        connection.beginTransaction(function(err) {
-            if (err) { throw err; }
-            connection.query('SELECT url FROM books WHERE id = :id', downloadItem, function(err, url) {
-                if (err) {
-                    connection.rollback(function() {
-                        throw err;
-                    });
-                }
+    mysqlClient.query({
+        sql     : 'UPDATE books as b join userplus as u on b.uid = u.id ' +
+                  'join userplus as mu on mu.id = :uid ' +
+                  'SET b.downloadNumber = b.downloadNumber + 1,u.downloadNum = u.downloadNum + 1,' +
+                  'mu.money = mu.money - b.money,u.money = u.money + 1 ' +
+                  'WHERE b.id = :id',
+        params  : downloadItem
+    }, function (err, rows) {
+        if (err) {
+            return callback(err, null);
+        }
 
-                connection.query('UPDATE books as b join userplus as u on b.uid = u.id ' +
-                    'join userplus as mu on mu.id = :uid ' +
-                    'SET b.downloadNumber = b.downloadNumber + 1,u.downloadNum = u.downloadNum + 1,' +
-                    'mu.money = mu.money - b.money,u.money = u.money + 1 ' +
-                    'WHERE b.id = :id', downloadItem, function(err, effect) {
-                    if (err) {
-                        connection.rollback(function() {
-                            throw err;
-                        });
-                    }
-
-                    connection.commit(function(err) {
-                        if (err) {
-                            connection.rollback(function() {
-                                throw err;
-                            });
-                        }
-                        callback(null,url[0]);
-                    });
-                });
-            });
-        });
-
+        callback(null, null);
     });
 };
