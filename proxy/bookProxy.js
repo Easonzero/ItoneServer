@@ -79,7 +79,7 @@ exports.getUrl = function (downloadItem,callback) {
             return callback(err, null);
         }
 
-        callback(null, rows[0]);
+        callback(null, rows[0].url);
     });
 }
 
