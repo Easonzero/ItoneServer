@@ -18,7 +18,7 @@ function sendMessage(done){
         picUrl      : 'NULL'
     };
 
-    app.test().request('post','/message/send').setBody(param).end(function (res) {
+    app.client().request('post','/message/send').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });
@@ -30,7 +30,7 @@ function getMessage(done){
         date        : '2016-5-7'
     };
 
-    app.test().request('post','/message/getMessage').setBody(param).end(function (res) {
+    app.client().request('post','/message/getMessage').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });

@@ -5,12 +5,12 @@ var express = require('express');
 var querystring = require('querystring');
 
 //version > 4.x
-express.application.test = ()=>{return new Request()};
+express.application.client = (addr)=>{return new Request(addr)};
 
-function Request() {
+function Request(addr) {
     this.data = [];
     this.header = {};
-    this.addr = {address:'localhost',port:'3000'};
+    this.addr = addr||{address:'localhost',port:'3000'};
 };
 
 /**
@@ -44,30 +44,15 @@ Request.prototype.request = function(method, path){
     return this;
 };
 
-Request.prototype.expect = function (body, fn) {
-    var args = arguments;
-    this.end(function (res) {
-        if (args.length === 3) {
-            res.headers.should.have.property(body.toLowerCase(), args[1]);
-            args[2]();
-        } else {
-            if ('number' === typeof body) {
-                res.statusCode.should.equal(body);
-            } else {
-                res.body.toString().should.equal(body);
-            }
-            fn();
-        }
-    });
-};
-
 Request.prototype.end = function(fn){
     var req = http.request({
         method: this.method,
-        port: this.addr.port,
+        port: this.addr.port||'',
         host: this.addr.address,
         path: this.path,
-        headers: this.header
+        headers: this.header,
+        agent:false,
+        rejectUnauthorized : false
     });
 
     this.data.forEach((chunk)=>req.write(chunk));

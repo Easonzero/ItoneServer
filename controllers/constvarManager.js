@@ -1,4 +1,5 @@
 const proxy = require('../proxy/universityProxy');
+const sms = require('../utils/smsUtil');
 const config = require('../config').initConfig();
 /**
  * Created by eason on 5/31/16.
@@ -30,5 +31,11 @@ exports.class = function(req, res) {
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);
+    });
+};
+
+exports.sms = function(req, res) {
+    sms.sendSms(req.body.mob,(ckn,data)=>{
+        res.send(ckn);
     });
 };

@@ -19,7 +19,7 @@ function sendHomework(done){
         picUrl           : 'NULL'
     };
 
-    app.test().request('post','/homework/send').setBody(param).end(function (res) {
+    app.client().request('post','/homework/send').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });
@@ -30,7 +30,7 @@ function getHomework(done){
         id              : '13115511080'
     };
 
-    app.test().request('post','/homework/getHomework').setBody(param).end(function (res) {
+    app.client().request('post','/homework/getHomework').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });

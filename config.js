@@ -25,6 +25,14 @@ function initConfig() {
                 maxAge: 1000*60*30
             }
         },
+        
+        smsConfig           : {
+            host:'api.weimi.cc',
+            path:'/2/sms/send.html',
+            uid:'a451114984',
+            pas:'wangyi601466673',
+            type:'json'
+        },
 
         statusCode        : {
             STATUS_OK              : 'ok',

@@ -4,7 +4,7 @@ var mysqlClient = require("../utils/sqlUtil");
  */
 exports.getUsersByOrder = function (callback) {
     mysqlClient.query({
-        sql     : "SELECT user.userName,userplus.downloadNum,user.picture " +
+        sql     : "SELECT @rownum:=@rownum+1 AS rank,user.userName,userplus.downloadNum,user.university,user.picture " +
                 "FROM userplus join user on userplus.id = user.id " +
                 "order by userplus.downloadNum limit 0, 10",
         params  : null

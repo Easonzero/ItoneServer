@@ -23,7 +23,7 @@ function register(done){
         picture          : false
     };
 
-    app.test().request('post','/users/register').setBody(param).end(function (res) {
+    app.client().request('post','/users/register').setBody(param).end(function (res) {
         done();
     });
 }
@@ -34,7 +34,7 @@ function login(done,callback){
         passWords        : 'qwe123'
     };
 
-    app.test().request('post','/users/login').setBody(param).end((res)=>{
+    app.client().request('post','/users/login').setBody(param).end((res)=>{
         let session = res.headers['set-cookie'];
         callback(session,done);
     });
@@ -42,7 +42,7 @@ function login(done,callback){
 
 function userbaseinfo(done){
     login(done,(session,done)=>{
-        app.test().request('get','/users/userbaseinfo').set('Cookie',session).end((res)=>{
+        app.client().request('get','/users/userbaseinfo').set('Cookie',session).end((res)=>{
             console.dir(res.body);
             done();
         });
@@ -51,7 +51,7 @@ function userbaseinfo(done){
 
 function userelseinfo(done){
     login(done,(session,done)=>{
-        app.test().request('get','/users/userelseinfo').set('Cookie',session).end((res)=>{
+        app.client().request('get','/users/userelseinfo').set('Cookie',session).end((res)=>{
             console.dir(res.body);
             done();
         });
@@ -60,7 +60,7 @@ function userelseinfo(done){
 
 function getrank(done){
     login(done,(session,done)=>{
-        app.test().request('get','/users/getrank').set('Cookie',session).end((res)=>{
+        app.client().request('get','/users/getrank').set('Cookie',session).end((res)=>{
             console.dir(res.body);
             done();
         });
@@ -69,7 +69,7 @@ function getrank(done){
 
 function usersbyorder(done){
     login(done,(session,done)=>{
-        app.test().request('get','/users/usersbyorder').set('Cookie',session).end((res)=>{
+        app.client().request('get','/users/usersbyorder').set('Cookie',session).end((res)=>{
             console.dir(res.body);
             done();
         });

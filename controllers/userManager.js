@@ -16,15 +16,7 @@ exports.create = function(req,res){
         var userinfo = JSON.parse(fields.userinfo[0]);
         proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
 
-        ep.once("after_checkUserExists", function (isUserExist) {
-            if (!isUserExist) {
-                proxy.create(userinfo,ep.doneLater("after_createUser"));
-            } else {
-                return callback(new ServerError(), null);
-            }
-        });
-
-        ep.once("after_createUser",function () {
+        ep.once("after_checkUserExists",function () {
             if(userinfo.picture){
                 var uploadedPath = files.inputFile[0].path;
                 userinfo.picture = '..//res//user//' + userinfo.id + '//headPic.jpg';
@@ -32,7 +24,19 @@ exports.create = function(req,res){
             }else{
                 userinfo.picture = null;
             }
-            return res.send(config.statusCode.STATUS_OK);
+
+            ep.doneLater("after_createUserPic");
+        });
+
+        ep.once("after_createUserPic", function (isUserExist) {
+            if (!isUserExist) {
+                proxy.create(userinfo,(err,result)=>{
+                    if(err) res.send(config.statusCode.STATUS_ERROR);
+                    return res.send(config.statusCode.STATUS_OK);
+                });
+            } else {
+                return res.send(config.statusCode.STATUS_ERROR);
+            }
         });
     });
 

@@ -17,7 +17,7 @@ function search(done){
         fromUniversity   : '哈尔滨工业大学'
     };
 
-    app.test().request('post','/books/search').setBody(param).end(function (res) {
+    app.client().request('post','/books/search').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });
@@ -30,7 +30,7 @@ function booklist(done){
         start            : 0
     };
 
-    app.test().request('post','/books/booklist').setBody(param).end((res)=>{
+    app.client().request('post','/books/booklist').setBody(param).end((res)=>{
         console.dir(res.body);
         done();
     });
@@ -42,7 +42,7 @@ function download(done){
         uid              : '13115511080'
     };
 
-    app.test().request('post','/books/download').setBody(param).end((res)=>{
+    app.client().request('post','/books/download').setBody(param).end((res)=>{
         console.dir(res.body);
         done();
     });
@@ -53,7 +53,7 @@ function userbooks(done){
         uid              : '13115511080'
     };
 
-    app.test().request('post','/books/userbooks').setBody(param).end((res)=>{
+    app.client().request('post','/books/userbooks').setBody(param).end((res)=>{
         console.dir(res.body);
         done();
     });

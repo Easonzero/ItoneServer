@@ -15,14 +15,14 @@ function course(done){
         fromUniversity        : "哈尔滨工业大学"
     };
 
-    app.test().request('post','/base/course').setBody(param).end(function (res) {
+    app.client().request('post','/base/course').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });
 }
 
 function university(done){
-    app.test().request('get','/base/university').end(function (res) {
+    app.client().request('get','/base/university').end(function (res) {
         console.dir(res.body);
         done();
     });
@@ -33,7 +33,7 @@ function vclass(done){
         fromUniversity        : "哈尔滨工业大学"
     };
 
-    app.test().request('post','/base/class').setBody(param).end(function (res) {
+    app.client().request('post','/base/class').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });
