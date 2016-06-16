@@ -142,7 +142,7 @@ exports.measureRank = function(req,res){
                     return res.send(config.statusCode.STATUS_ERROR);
                 }
                 if(result.rank<100)  result.rank = getRank(id);
-                return res.send(result);
+                return res.send(result.rank+'');
             });
         });
     }else{
@@ -152,7 +152,7 @@ exports.measureRank = function(req,res){
                 return res.send(config.statusCode.STATUS_ERROR);
             }
             if(result.rank<100)  result.rank = getRank(id);
-            return res.send(result);
+            return res.send(result.rank+'');
         });
     }
 };
@@ -165,7 +165,14 @@ exports.logout = function(req,res){
 
 exports.sortUsers = function(req,res){
     if(!global.studentlist){
-        updateOrderlistTask.run();
+        updateOrderlistTask.run((err)=>{
+		    if (err) {
+                res.statusCode = err.statusCode;
+                return res.send(config.statusCode.STATUS_ERROR);
+            }
+		    let s = getOrderlist()
+		    return res.send(s);
+	    });
     }
     else{
         return res.send(getOrderlist());
@@ -175,8 +182,8 @@ exports.sortUsers = function(req,res){
 function getOrderlist(){
     let orderlist = [];
     let i = 0;
-    if(!global.studentlist) return null;
-    for(let student in global.studentlist){
+    if(!global.studentlist) return orderlist;
+    for(let student of global.studentlist){
         if(student.rank < 10){
             orderlist[i] = student;
             i++;

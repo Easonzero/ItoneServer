@@ -16,6 +16,10 @@ rule.minute = 0;
 
 for(let task in tasklist){
     schedule.scheduleJob(rule, ()=>{
-        tasklist[task].run();
+        tasklist[task].run((err)=>{
+		if(err){
+			console.dir(err);
+		}
+	});
     });
 }
