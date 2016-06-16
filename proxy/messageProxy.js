@@ -17,7 +17,7 @@ exports.addMessage = function (messageItem, callback) {
 
 exports.findMessage = function (messageItem, callback) {
     mysqlClient.query({
-        sql     : "SELECT m.id,u.userName as uname,m.message,m.date,m.category,m.picUrl " +
+        sql     : "SELECT m.id,u.userName as uname,m.message,m.date,m.category,u.picture as picUrl " +
         "FROM message as m join user as u on m.uid = u.id " +
         "WHERE u.class = :class and u.university = :university and m.date > :date",
         params  : messageItem
