@@ -52,7 +52,7 @@ exports.login = function(req, res) {
     }
     
     proxy.login(req.body,function(err,result){
-        if (err||result.length === 0) {
+        if (err||!result) {
             return res.send(config.statusCode.STATUS_ERROR);
         }
         req.session.user = result;
