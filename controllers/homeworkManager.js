@@ -21,7 +21,7 @@ exports.getHomework = function(req, res) {
     req.body['university'] = req.session.user.university;
     req.body['class'] = req.session.user.class;
     req.body.date = new Date().Format('y+M+d+');
-    proxy.findHomework(req.query,function (err,result) {
+    proxy.findHomework(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_OK);
