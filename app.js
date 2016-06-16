@@ -1,4 +1,3 @@
-const client = require('./common/client');
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -9,7 +8,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const config = require('./config').initConfig();
 const error = require('./common/error');
-let routes = require('./routes');
+const routes = require('./routes');
+const task = require('./common/task');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -4,9 +4,10 @@ var mysqlClient = require("../utils/sqlUtil");
  */
 exports.getUsersByOrder = function (callback) {
     mysqlClient.query({
-        sql     : "SELECT @rownum:=@rownum+1 AS rank,user.userName,userplus.downloadNum,user.university,user.picture " +
+        sql     : "SELECT @rownum:=@rownum+1 as rank,a.userName,a.downloadNum,a.university,a.picture as url,a.id " +
+                "FROM (SELECT @rownum:=0,user.*,userplus.downloadNum " +
                 "FROM userplus join user on userplus.id = user.id " +
-                "order by userplus.downloadNum limit 0, 10",
+                "order by userplus.downloadNum DESC limit 0, 100) as a",
         params  : null
     }, function (err, rows) {
         if (err) {
@@ -131,5 +132,22 @@ exports.getRank = function(downloadNum, callback) {
         }
 
         return callback(null, rows[0]);
+    });
+};
+
+exports.refeshRank = function(callback) {
+    mysqlClient.query({
+        sql     : `UPDATE rank, (SELECT rank.start,count(*) as count 
+        FROM rank join userplus on rank.start <= userplus.downloadNum and rank.end > userplus.downloadNum
+        GROUP BY rank.start,rank.end) as r
+        SET rank.count = r.count
+        WHERE r.start = rank.start`,
+        params  : null
+    }, function (err, rows) {
+        if (err || !rows) {
+            return callback(new DBError(), null);
+        }
+
+        return callback(null, null);
     });
 };

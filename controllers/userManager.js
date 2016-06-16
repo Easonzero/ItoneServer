@@ -1,8 +1,9 @@
-var multiparty = require('multiparty');
-var fs = require('fs');
-var proxy = require('../proxy/userProxy');
-var config = require('../config').initConfig();
-var EventProxy  = require("eventproxy");
+const multiparty = require('multiparty');
+const fs = require('fs');
+const proxy = require('../proxy/userProxy');
+const config = require('../config').initConfig();
+const EventProxy  = require("eventproxy");
+const updateOrderlistTask = require('../task/updateOrderlistTask');
 /**
  * Created by eason on 5/30/16.
  */
@@ -125,8 +126,10 @@ exports.measureRank = function(req,res){
     if (!req.session||!req.session.user) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
+    
+    let id = req.session.user.id;
+    
     if(!req.session.userPlu){
-        var id = req.session.user.id;
         proxy.getPluInfo({id:id},function(err,result){
             if (err||result.length === 0) {
                 res.statusCode = err.statusCode;
@@ -138,6 +141,7 @@ exports.measureRank = function(req,res){
                     res.statusCode = err.statusCode;
                     return res.send(config.statusCode.STATUS_ERROR);
                 }
+                if(result.rank<100)  result.rank = getRank(id);
                 return res.send(result);
             });
         });
@@ -147,6 +151,7 @@ exports.measureRank = function(req,res){
                 res.statusCode = err.statusCode;
                 return res.send(config.statusCode.STATUS_ERROR);
             }
+            if(result.rank<100)  result.rank = getRank(id);
             return res.send(result);
         });
     }
@@ -160,27 +165,32 @@ exports.logout = function(req,res){
 
 exports.sortUsers = function(req,res){
     if(!global.studentlist){
-        proxy.getUsersByOrder(function(err,result){
-            if (err||result.length === 0) {
-                res.statusCode = err.statusCode;
-                return res.send(config.statusCode.STATUS_ERROR);
-            }
-            global.studentlist = result;
-            global.STUDENTLIST_TIMESTUMP = Date.now();
-            return res.send(global.studentlist);
-        });
+        updateOrderlistTask.run();
     }
     else{
-        if((Date.now()-global.STUDENTLIST_TIMESTUMP)>3600000){
-            proxy.getUsersByOrder(function(err,result){
-                if (err||result.length === 0) {
-                    res.statusCode = err.statusCode;
-                    return res.send(config.statusCode.STATUS_ERROR);
-                }
-                global.studentlist = result;
-                global.STUDENTLIST_TIMESTUMP = Date.now();
-            });
-        }
-        return res.send(global.studentlist);
+        return res.send(getOrderlist());
     }
 };
+
+function getOrderlist(){
+    let orderlist = [];
+    let i = 0;
+    if(!global.studentlist) return null;
+    for(let student in global.studentlist){
+        if(student.rank < 10){
+            orderlist[i] = student;
+            i++;
+            if(i === 10) return orderlist;
+        }
+    }
+    return orderlist;
+}
+
+function getRank(id){
+    if(!global.studentlist) return 0;
+    for(let student in global.studentlist){
+        if(student.id == id){
+            return student.rank;
+        }
+    }
+}
