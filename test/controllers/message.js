@@ -5,7 +5,7 @@ const app = require('../../app');
 exports.describe = 'message test';
 
 exports.it = {
-    'sendMessage':sendMessage,
+    //'sendMessage':sendMessage,
     'getMessage':getMessage
 };
 

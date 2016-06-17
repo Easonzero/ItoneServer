@@ -5,7 +5,7 @@ const app = require('../../app');
 exports.describe = 'homework test';
 
 exports.it = {
-    'sendHomework':sendHomework,
+    //'sendHomework':sendHomework,
     'getHomework':getHomework,
 };
 
