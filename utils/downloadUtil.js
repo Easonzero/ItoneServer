@@ -1,6 +1,4 @@
 const fs = require('fs');
-const path = require('path');
-const contentDisposition = require('content-disposition');
 /**
  * Created by eason on 6/17/16.
  */
@@ -10,30 +8,29 @@ let req = null,
 module.exports.download = (_req,_res,filePath,callback)=>{
     req = _req;
     res = _res;
-    return ()=>{
-        path.exists(filePath, (exist)=>{
-            if(exist) {
-                init(filePath, (config)=>{
-                    let fReadStream = fs.createReadStream(filePath, {
-                        encoding : 'binary',
-                        bufferSize : 1024 * 1024,
-                        start : config.startPos,
-                        end : config.fileSize
-                    });
-                    fReadStream.on('data', function(chunk) {
-                        res.write(chunk, 'binary');
-                    });
-                    fReadStream.on('end', function() {
-                        res.end();
-                        callback();
-                    });
+
+    fs.exists(filePath, (exist)=>{
+        if(exist) {
+            init(filePath, (config)=>{
+                let fReadStream = fs.createReadStream(filePath, {
+                    encoding : 'binary',
+                    bufferSize : 1024 * 1024,
+                    start : config.startPos,
+                    end : config.fileSize
                 });
-            } else {
-                console.log('文件不存在！');
-                return;
-            }
-        });
-    }
+                fReadStream.on('data', function(chunk) {
+                    res.write(chunk, 'binary');
+                });
+                fReadStream.on('end', function() {
+                    res.end();
+                    callback();
+                });
+            });
+        } else {
+            console.log('文件不存在！');
+            return;
+        }
+    });
 };
 
 function calStartPosition(Range){
@@ -50,12 +47,12 @@ function configHeader(Config){
         fileSize = Config.fileSize,
         path = Config.path;
 
-    res.setHeader('Content-Disposition', contentDisposition(path));
+    res.attachment(path);
 
     if(startPos == 0) {
-        res.setHeader('Accept-Range', 'bytes');
+        res.append('Accept-Range', 'bytes');
     } else {
-        res.setHeader('Content-Range', 'bytes ' + startPos + '-' + (fileSize - 1) + '/' + fileSize);
+        res.append('Content-Range', 'bytes ' + startPos + '-' + (fileSize - 1) + '/' + fileSize);
     }
     res.writeHead(206, 'Partial Content', {
         'Content-Type' : 'application/octet-stream'
