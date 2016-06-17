@@ -36,7 +36,7 @@ module.exports.download = (_req,_res,filePath,callback)=>{
     }
 };
 
-function calStartPosition(Range)=>{
+function calStartPosition(Range){
     let startPos = 0;
     if( typeof Range != 'undefined') {
         let startPosMatch = /^bytes=([0-9]+)-$/.exec(Range);
@@ -45,7 +45,7 @@ function calStartPosition(Range)=>{
     return startPos;
 };
 
-function configHeader(Config)=>{
+function configHeader(Config){
     let startPos = Config.startPos,
         fileSize = Config.fileSize,
         path = Config.path;
@@ -62,7 +62,7 @@ function configHeader(Config)=>{
     });
 };
 
-function init(filePath, down)=>{
+function init(filePath, down){
     let config = {};
     fs.stat(filePath, function(error, state) {
         if(error)
