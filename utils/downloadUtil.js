@@ -48,6 +48,7 @@ function configHeader(Config){
         path = Config.path;
 
     res.attachment(path);
+    res.append('Content-Length', fileSize);
 
     if(startPos == 0) {
         res.append('Accept-Range', 'bytes');
