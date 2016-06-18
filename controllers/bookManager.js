@@ -1,7 +1,6 @@
 const proxy = require('../proxy/bookProxy');
 const config = require('../config').initConfig();
 const path = require('path');
-const dot = require('../utils/downloadUtil');
 /**
  * Created by eason on 5/30/16.
  */
@@ -45,12 +44,16 @@ exports.download = function(req, res) {
         }
         
         proxy.getUrl(req.body,function(err,url){
-            return dot.download(req,res,__dirname + '/../' + url,()=>{
-                proxy.update(req.body,function (err,result) {
-                    if (err) {
-                        console.log(error);
-                    }
-                });
+	    	if(err){
+	    		res.statusCode = err.statusCode;
+            	return res.send(config.statusCode.STATUS_ERROR);
+	    	}
+            proxy.update(req.body,function (err,result) {
+                if (err) {
+                    res.statusCode = err.statusCode;
+            		return res.send(config.statusCode.STATUS_ERROR);
+                }
+                return res.send(url);
             });
         });
     });

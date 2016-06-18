@@ -5,9 +5,9 @@ const proxy = require('../proxy/userProxy');
 
 exports.run = (callback)=>{
     proxy.refeshRank(function(err,result){
-        if (err||result.length === 0) {
+        if (err||!result) {
             console.dir(err);
-	    callback(err);
+	    	callback(err);
         }
     })
 };
