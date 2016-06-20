@@ -22,7 +22,7 @@ function initSmsUtil(){
         uid:'dw7n0VIwcYXi',
         pas:'9rxvjuaj',
         mob:'',
-        con:'',
+        //con:'',
         type:'json'
     };
 }
@@ -32,13 +32,6 @@ function send(){
     options.headers['Content-Length'] = content.length;
 
     let req = http.request(options,function(res){
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            console.log(chunk);
-        });
-        res.on('end',function(){
-            console.log('over');
-        });
     });
     req.write(content);
     req.end();
@@ -56,10 +49,8 @@ exports.sendSms = (mob,callback)=>{
     {
         ckn+=Math.floor(Math.random()*10);
     }
-    postData.mob = mob;
-    postData.con = `【微米】您的验证码是：${ckn}，3分钟内有效。如非您本人操作，可忽略本消息。`;
-
     callback(ckn);
-
+    postData.mob = mob;
+    //postData.con = `您的短信验证码：${ckn}`;
     send();
 };

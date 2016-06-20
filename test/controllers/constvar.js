@@ -5,9 +5,9 @@ const app = require('../../app');
 exports.describe = 'constvar test';
 
 exports.it = {
-    'course':course,
-    'university':university,
-    'class':vclass,
+    //'course':course,
+    //'university':university,
+    //'class':vclass,
     'sms':sms
 };
 

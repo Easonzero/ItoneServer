@@ -10,7 +10,7 @@ express.application.client = (addr)=>{return new Request(addr)};
 function Request(addr) {
     this.data = [];
     this.header = {};
-    this.addr = addr||{address:'119.29.229.214',port:'3000'};
+    this.addr = addr||{address:'localhost',port:'3000'};
 };
 
 /**
