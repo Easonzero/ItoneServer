@@ -74,7 +74,7 @@ exports.create = function(userInfo, callback){
       connection.beginTransaction((err)=>{
             if (err) { throw err; }
             connection.query('INSERT INTO user VALUES(:id, :passWords, :userName, :university, :faculty, :grade, :class, :picture)',
-              userInfo, (err, result)=>{
+              userInfo.toString();, (err, result)=>{
               if (err) {
                   connection.rollback(function() {
                       throw DBError();
