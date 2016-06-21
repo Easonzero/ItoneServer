@@ -70,17 +70,11 @@ exports.create = function(userInfo, callback){
         return callback(new InvalidParamError(), null);
     }
 
-    let json = {};
-    for(let key in userInfo){
-        json[key] = userInfo[key];
-    }
-    userInfo = json;
-
     mysqlClient.processTransaction((connection)=>{
       connection.beginTransaction((err)=>{
             if (err) { throw err; }
             connection.query('INSERT INTO user VALUES(:id, :passWords, :userName, :university, :faculty, :grade, :Class, :picture)',
-                userInfo, (err, result)=>{
+                userInfo.toString(), (err, result)=>{
               if (err) {
                   connection.rollback(function() {
                       throw DBError();
