@@ -81,7 +81,7 @@ exports.create = function(userInfo, callback){
                   });
               }
 
-              connection.query('INSERT INTO userPlus VALUES(:id,0,0)', {id:userInfo.id}, (err, result)=>{
+              connection.query('INSERT INTO userplus VALUES(:id,0,0)', {id:userInfo.id}, (err, result)=>{
                   if (err) {
                       connection.rollback(function() {
                           throw DBError();
