@@ -1,8 +1,8 @@
-var {EventEmitter} = require('events');
-var methods = ['get', 'post', 'put', 'delete', 'head'];
-var http = require('http');
-var express = require('express');
-var querystring = require('querystring');
+const {EventEmitter} = require('events');
+const methods = ['get', 'post', 'put', 'delete', 'head'];
+const http = require('http');
+const express = require('express');
+const querystring = require('querystring');
 
 //version > 4.x
 express.application.client = (addr)=>{return new Request(addr)};
@@ -10,7 +10,7 @@ express.application.client = (addr)=>{return new Request(addr)};
 function Request(addr) {
     this.data = [];
     this.header = {};
-    this.addr = addr||{address:'119.29.229.214',port:'3000'};
+    this.addr = addr||{address:'localhost',port:'3000'};
 };
 
 /**

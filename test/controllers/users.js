@@ -6,10 +6,10 @@ exports.describe = 'user test';
 
 exports.it = {
     'register':register,
-    'userbaseinfo':userbaseinfo,
-    'userelseinfo':userelseinfo,
-    'getrank':getrank,
-    'usersbyorder':usersbyorder
+    //'userbaseinfo':userbaseinfo,
+    //'userelseinfo':userelseinfo,
+    //'getrank':getrank,
+    //'usersbyorder':usersbyorder
 };
 
 function register(done){
