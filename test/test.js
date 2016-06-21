@@ -10,7 +10,7 @@ const controllers = [
  * Created by eason on 5/6/16
  */
 
-before((done)=>app.listen(3000, done));
+//before((done)=>app.listen(3000, done));
 
 for(let controller of controllers){
     describe(controller.describe,()=>{

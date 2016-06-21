@@ -8,7 +8,7 @@ let postData = null;
 
 function initSmsUtil(){
     options = {
-        host:'api.weimi.cc',
+        host:'https://api.weimi.cc',
         path:'/2/sms/send.html',
         method:'POST',
         agent:false,
@@ -22,7 +22,7 @@ function initSmsUtil(){
         uid:'dw7n0VIwcYXi',
         pas:'9rxvjuaj',
         mob:'',
-        //con:'',
+        con:'',
         type:'json'
     };
 }
@@ -32,6 +32,13 @@ function send(){
     options.headers['Content-Length'] = content.length;
 
     let req = http.request(options,function(res){
+    	res.setEncoding('utf8');
+    	res.on('data', function (chunk) {
+        	//console.log(JSON.parse(chunk));
+    	});
+    	res.on('end',function(){
+        	//console.log('over');
+    	});
     });
     req.write(content);
     req.end();
@@ -49,8 +56,9 @@ exports.sendSms = (mob,callback)=>{
     {
         ckn+=Math.floor(Math.random()*10);
     }
-    callback(ckn);
     postData.mob = mob;
-    //postData.con = `您的短信验证码：${ckn}`;
+    postData.con = `您的短信验证码：${ckn}`;
+    
+    callback(ckn);
     send();
 };

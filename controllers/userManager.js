@@ -67,7 +67,7 @@ exports.modify = function(req,res){
     form.parse(req, ep.doneLater("after_parseFrom"));
 
     ep.once("after_parseFrom",function(fields, files) {
-        var userinfo = JSON.parse(fields.userinfo[0]);
+        var userinfo = JSON.parse(fields);
         proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists", function (isUserExist) {
