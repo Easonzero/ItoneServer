@@ -16,7 +16,7 @@ exports.create = function(req,res){
     ep.once("after_parseFrom",function(fields, files) {
     	console.log(fields);
         var userinfo = JSON.parse(fields.userInfo[0]);
-        proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
+        proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists",function () {
             if(userinfo.picture){
@@ -69,7 +69,7 @@ exports.modify = function(req,res){
 
     ep.once("after_parseFrom",function(fields, files) {
         var userinfo = JSON.parse(fields.userInfo[0]);
-        proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
+        proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists", function (isUserExist) {
             if (isUserExist) {
