@@ -14,6 +14,7 @@ exports.create = function(req,res){
     form.parse(req, ep.doneLater("after_parseFrom"));
 
     ep.once("after_parseFrom",function(fields, files) {
+    	console.log(fields);
         var userinfo = JSON.parse(fields.userInfo[0]);
         proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
 
