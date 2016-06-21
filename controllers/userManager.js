@@ -18,7 +18,7 @@ exports.create = function(req,res){
         var userinfo = JSON.parse(fields.userInfo[0]);
         proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
-        ep.once("after_checkUserExists",function () {
+        ep.once("after_checkUserExists",function (isUserExist) {
             if(userinfo.picture == 'true'){
                 var uploadedPath = files.inputFile[0].path;
                 userinfo.picture = '/res/user/' + userinfo.id + '/headPic.jpg';
@@ -26,11 +26,7 @@ exports.create = function(req,res){
             }else{
                 userinfo.picture = null;
             }
-
-            ep.doneLater("after_createUserPic");
-        });
-
-        ep.once("after_createUserPic", function (isUserExist) {
+            
             if (!isUserExist) {
                 proxy.create(userinfo,(err,result)=>{
                     if(err) res.send(config.statusCode.STATUS_ERROR);
