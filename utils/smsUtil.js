@@ -57,7 +57,7 @@ exports.sendSms = (mob,callback)=>{
         ckn+=Math.floor(Math.random()*10);
     }
     postData.mob = mob;
-    postData.con = `您的短信验证码：${ckn}`;
+    postData.con = `【微米】您的短信验证码：${ckn}`;
     
     callback(ckn);
     send();
