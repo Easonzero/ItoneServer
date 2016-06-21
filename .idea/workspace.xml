@@ -26,8 +26,8 @@
       <file leaf-file-name="userProxy.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proxy/userProxy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="83" column="66" selection-start-line="83" selection-start-column="66" selection-end-line="83" selection-end-column="66" />
+            <state relative-caret-position="163">
+              <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -337,7 +337,7 @@
       <workItem from="1466185905455" duration="939000" />
       <workItem from="1466403464215" duration="2704000" />
       <workItem from="1466478678469" duration="3534000" />
-      <workItem from="1466488880733" duration="3703000" />
+      <workItem from="1466488880733" duration="3896000" />
     </task>
     <task id="LOCAL-00001" summary="修改下载功能，将下载的检测和传输数据分割开">
       <created>1465860209055</created>
@@ -364,7 +364,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141020000" />
+    <option name="totallyTimeSpent" value="141213000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -766,8 +766,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proxy/userProxy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="83" column="66" selection-start-line="83" selection-start-column="66" selection-end-line="83" selection-end-column="66" />
+        <state relative-caret-position="163">
+          <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
           <folding />
         </state>
       </provider>

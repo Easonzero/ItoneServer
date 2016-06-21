@@ -70,11 +70,14 @@ exports.create = function(userInfo, callback){
         return callback(new InvalidParamError(), null);
     }
 
+    console.log(userInfo.id);
+
     mysqlClient.processTransaction((connection)=>{
       connection.beginTransaction((err)=>{
             if (err) { throw err; }
             connection.query('INSERT INTO user VALUES(:id, :passWords, :userName, :university, :faculty, :grade, :Class, :picture)',
-                userInfo.toString(), (err, result)=>{
+                {id:userInfo.id,passWords:userInfo.passWords,userName:userInfo.userName,university:userInfo.university,
+                    faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture}, (err, result)=>{
               if (err) {
                   connection.rollback(function() {
                       throw DBError();
