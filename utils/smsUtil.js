@@ -8,7 +8,7 @@ let postData = null;
 
 function initSmsUtil(){
     options = {
-        host:'https://api.weimi.cc',
+        host:'api.weimi.cc',
         path:'/2/sms/send.html',
         method:'POST',
         agent:false,
