@@ -70,41 +70,26 @@ exports.create = function(userInfo, callback){
         return callback(new InvalidParamError(), null);
     }
 
-    console.log(userInfo.id);
+    mysqlClient.query({
+        sql     : 'INSERT INTO user VALUES(:id, :passWords, :userName, :university, :faculty, :grade, :Class, :picture)',
+        params  : {id:userInfo.id,passWords:userInfo.passWords,userName:userInfo.userName,university:userInfo.university,
+            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture}
+        }, function (err, rows) {
 
-    mysqlClient.processTransaction((connection)=>{
-      connection.beginTransaction((err)=>{
-            if (err) { throw err; }
-            connection.query('INSERT INTO user VALUES(:id, :passWords, :userName, :university, :faculty, :grade, :Class, :picture)',
-                {id:userInfo.id,passWords:userInfo.passWords,userName:userInfo.userName,university:userInfo.university,
-                    faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture}, (err, result)=>{
-              if (err) {
-                  connection.rollback(function() {
-                      throw DBError();
-                  });
-              }
+        if (err) {
+            return callback(err, null);
+        }
 
-              connection.query('INSERT INTO userplus VALUES(:id,0,0)', {id:userInfo.id}, (err, result)=>{
-                  if (err) {
-                      connection.rollback(function() {
-                          throw DBError();
-                      });
-                  }
-                  connection.commit((err)=>{
-                      if (err) {
-                          connection.rollback(function() {
-                              throw DBError();
-                          });
-                      }
-                      if (err || result.affectedRows === 0) {
-                          return callback(new DBError(), null);
-                      }
-                      return callback(null, null);
-                  });
-            });
-          });
+        mysqlClient.query({
+            sql     : 'INSERT INTO userplus VALUES(:id,0,0)',
+            params  : {id:userInfo.id}
+        }, (err, result)=>{
+            if (err) {
+                return callback(err, null);
+            }
+            callback(null,null);
+        });
     });
-  });
 };
 
 exports.checkUserExists = function(userInfo, callback) {
