@@ -28,7 +28,7 @@ exports.create = function(req,res){
             
             if (!isUserExist) {
                 proxy.create(JSON.stringify(userinfo),(err,result)=>{
-                    if(err) res.send(config.statusCode.STATUS_ERROR);
+                    if(err) return res.send(err);//config.statusCode.STATUS_ERROR);
                     return res.send(config.statusCode.STATUS_OK);
                 });
             } else {
