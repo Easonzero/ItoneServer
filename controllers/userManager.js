@@ -14,13 +14,13 @@ exports.create = function(req,res){
     form.parse(req, ep.doneLater("after_parseFrom"));
 
     ep.once("after_parseFrom",function(fields, files) {
-        var userinfo = JSON.parse(fields.userinfo[0]);
+        var userinfo = JSON.parse(fields);
         proxy.checkUserExists({id:userInfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists",function () {
             if(userinfo.picture){
                 var uploadedPath = files.inputFile[0].path;
-                userinfo.picture = '..//res//user//' + userinfo.id + '//headPic.jpg';
+                userinfo.picture = '/res/user/' + userinfo.id + '/headPic.jpg';
                 fs.rename(uploadedPath, userinfo.picture);
             }else{
                 userinfo.picture = null;
