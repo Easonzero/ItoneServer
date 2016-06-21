@@ -19,16 +19,16 @@ exports.create = function(req,res){
 
         ep.once("after_checkUserExists",function (isUserExist) {
             if(userinfo.picture == 'true'){
-                let uploadedPath = files.inputFile[0].path;
+                let uploadedPath = files.file[0].path;
                 userinfo.picture = '/res/user/' + userinfo.id + '/headPic.jpg';
                 fs.rename(uploadedPath, userinfo.picture);
             }else{
-                userinfo.picture = null;
+                userinfo.picture = '';
             }
             
             if (!isUserExist) {
                 proxy.create(JSON.stringify(userinfo),(err,result)=>{
-                    if(err) return res.send(err);//config.statusCode.STATUS_ERROR);
+                    if(err) return res.send(config.statusCode.STATUS_ERROR);
                     return res.send(config.statusCode.STATUS_OK);
                 });
             } else {
