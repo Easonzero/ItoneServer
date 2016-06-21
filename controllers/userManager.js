@@ -21,7 +21,9 @@ exports.create = function(req,res){
             if(userinfo.picture == 'true'){
                 let uploadedPath = files.file[0].path;
                 let savePath = __dirname+'/../'+'public/res/user/' + userinfo.id + '/';
-                fs.mkdirSync(savePath);
+                if (!fs.existsSync(savePath)) {
+                    fs.mkdirSync(savePath);
+                }
                 userinfo.picture = savePath + 'headPic.jpg';
                 fs.rename(uploadedPath, userinfo.picture);
             }else{
@@ -30,7 +32,11 @@ exports.create = function(req,res){
             
             if (!isUserExist) {
                 proxy.create(JSON.stringify(userinfo),(err,result)=>{
-                    if(err) return res.send(config.statusCode.STATUS_ERROR);
+                    if(err) {
+                        console.log(err);
+                    return res.send(config.statusCode.STATUS_ERROR);
+                    }
+                    
                     return res.send(config.statusCode.STATUS_OK);
                 });
             } else {
