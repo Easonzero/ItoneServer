@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbdf1a77-9002-4d7e-b4b5-417bb2a777b3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/userManager.js" afterPath="$PROJECT_DIR$/controllers/userManager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proxy/userProxy.js" afterPath="$PROJECT_DIR$/proxy/userProxy.js" />
     </list>
     <ignored path="ItOne_server.iws" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="userProxy.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proxy/userProxy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="81" column="15" selection-start-line="81" selection-start-column="15" selection-end-line="81" selection-end-column="15" />
+            <state relative-caret-position="450">
+              <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -328,7 +327,7 @@
       <workItem from="1466185905455" duration="939000" />
       <workItem from="1466403464215" duration="2704000" />
       <workItem from="1466478678469" duration="3534000" />
-      <workItem from="1466488880733" duration="2716000" />
+      <workItem from="1466488880733" duration="3054000" />
     </task>
     <task id="LOCAL-00001" summary="修改下载功能，将下载的检测和传输数据分割开">
       <created>1465860209055</created>
@@ -355,7 +354,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140033000" />
+    <option name="totallyTimeSpent" value="140371000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -471,13 +470,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -754,10 +746,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/proxy/userProxy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="81" column="15" selection-start-line="81" selection-start-column="15" selection-end-line="81" selection-end-column="15" />
+        <state relative-caret-position="450">
+          <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
           <folding />
         </state>
       </provider>
