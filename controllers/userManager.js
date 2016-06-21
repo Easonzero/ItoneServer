@@ -19,7 +19,7 @@ exports.create = function(req,res){
         proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists",function () {
-            if(userinfo.picture){
+            if(userinfo.picture == 'true'){
                 var uploadedPath = files.inputFile[0].path;
                 userinfo.picture = '/res/user/' + userinfo.id + '/headPic.jpg';
                 fs.rename(uploadedPath, userinfo.picture);
