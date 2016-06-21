@@ -14,7 +14,6 @@ exports.create = function(req,res){
     form.parse(req, ep.doneLater("after_parseFrom"));
 
     ep.once("after_parseFrom",function(fields, files) {
-    	console.log(fields);
         var userinfo = JSON.parse(fields.userInfo[0]);
         proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
@@ -28,6 +27,7 @@ exports.create = function(req,res){
             }
             
             if (!isUserExist) {
+                userinfo = eval("(" + userinfo + ")");
                 proxy.create(userinfo,(err,result)=>{
                     if(err) res.send(config.statusCode.STATUS_ERROR);
                     return res.send(config.statusCode.STATUS_OK);
