@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbdf1a77-9002-4d7e-b4b5-417bb2a777b3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/userManager.js" afterPath="$PROJECT_DIR$/controllers/userManager.js" />
     </list>
     <ignored path="ItOne_server.iws" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="userManager.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/userManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+            <state relative-caret-position="326">
+              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -328,7 +327,7 @@
       <workItem from="1466185905455" duration="939000" />
       <workItem from="1466403464215" duration="2704000" />
       <workItem from="1466478678469" duration="3534000" />
-      <workItem from="1466488880733" duration="1191000" />
+      <workItem from="1466488880733" duration="1539000" />
     </task>
     <task id="LOCAL-00001" summary="修改下载功能，将下载的检测和传输数据分割开">
       <created>1465860209055</created>
@@ -355,7 +354,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138508000" />
+    <option name="totallyTimeSpent" value="138856000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -630,13 +629,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/bookManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/grunt/lib/grunt/file.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6930">
@@ -655,6 +647,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -732,6 +725,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="17" column="36" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -751,10 +745,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/bookManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="36" column="2" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/userManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        <state relative-caret-position="326">
+          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
           <folding />
         </state>
       </provider>
