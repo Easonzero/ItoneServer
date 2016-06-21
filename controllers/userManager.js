@@ -20,7 +20,7 @@ exports.create = function(req,res){
         ep.once("after_checkUserExists",function (isUserExist) {
             if(userinfo.picture == 'true'){
                 let uploadedPath = files.file[0].path;
-                let savePath = __dirname+'/../'+'/res/user/' + userinfo.id + '/';
+                let savePath = __dirname+'/../'+'public/res/user/' + userinfo.id + '/';
                 fs.mkdirSync(savePath);
                 userinfo.picture = savePath + 'headPic.jpg';
                 fs.rename(uploadedPath, userinfo.picture);
