@@ -14,12 +14,12 @@ exports.create = function(req,res){
     form.parse(req, ep.doneLater("after_parseFrom"));
 
     ep.once("after_parseFrom",function(fields, files) {
-        var userinfo = JSON.parse(fields.userInfo[0]);
+        let userinfo = JSON.parse(fields.userInfo[0]);
         proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists",function (isUserExist) {
             if(userinfo.picture == 'true'){
-                var uploadedPath = files.inputFile[0].path;
+                let uploadedPath = files.inputFile[0].path;
                 userinfo.picture = '/res/user/' + userinfo.id + '/headPic.jpg';
                 fs.rename(uploadedPath, userinfo.picture);
             }else{
@@ -27,7 +27,7 @@ exports.create = function(req,res){
             }
             
             if (!isUserExist) {
-                userinfo = eval("(" + userinfo + ")");
+            	console.log(userinfo);
                 proxy.create(userinfo,(err,result)=>{
                     if(err) res.send(config.statusCode.STATUS_ERROR);
                     return res.send(config.statusCode.STATUS_OK);
