@@ -200,9 +200,9 @@ function getOrderlist(){
 }
 
 function getRank(id){
-    for(let x in global.studentlist){
-        if(global.studentlist[x].id == id){
-           return global.studentlist[x].rank;
+	for(let student of global.studentlist){
+        if(student.id == id){
+            return student.rank;
         }
     }
     return global.studentlist.length-1;
