@@ -7,7 +7,7 @@ exports.describe = 'book test';
 exports.it = {
     //'search':search,
     //'booklist':booklist,
-    //'download':download,
+    'download':download,
     //'userbooks':userbooks
 };
 
