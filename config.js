@@ -3,19 +3,19 @@ function initConfig() {
 
         default_max_conns : 50,
 
-        /*mysqlConfig       : {
+        mysqlConfig       : {
               "host"      : "127.0.0.1",
               "user"      : "root",
               "password"  : "wangyi601466673",
               "database"  : "itone"
-        },*/
+        },
 
-        mysqlConfig       : {
+        /*mysqlConfig       : {
            "host"      : "127.0.0.1",
             "user"      : "root",
             "password"  : "123",
             "database"  : "itone"
-        },
+        },*/
         
         sessionConfig     : {
             secret      : '123456',
