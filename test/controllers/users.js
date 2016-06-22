@@ -9,7 +9,7 @@ exports.it = {
     //'userbaseinfo':userbaseinfo,
     //'userelseinfo':userelseinfo,
     'getrank':getrank,
-    //'usersbyorder':usersbyorder
+    'usersbyorder':usersbyorder
 };
 
 function register(done){

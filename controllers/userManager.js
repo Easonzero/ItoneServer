@@ -202,7 +202,7 @@ function getOrderlist(){
 function getRank(id){
 	for(let student of global.studentlist){
         if(student.id == id){
-            return student.rank;
+            return student.rank-1;
         }
     }
     return global.studentlist.length-1;
