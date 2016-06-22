@@ -5,10 +5,10 @@ const app = require('../../app');
 exports.describe = 'user test';
 
 exports.it = {
-    'register':register,
+    //'register':register,
     //'userbaseinfo':userbaseinfo,
     //'userelseinfo':userelseinfo,
-    //'getrank':getrank,
+    'getrank':getrank,
     //'usersbyorder':usersbyorder
 };
 
@@ -30,7 +30,7 @@ function register(done){
 
 function login(done,callback){
     let param = {
-        id               : '13115511080',
+        id               : '12511325826',
         passWords        : 'qwe123'
     };
 

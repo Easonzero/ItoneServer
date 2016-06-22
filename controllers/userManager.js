@@ -145,7 +145,8 @@ exports.measureRank = function(req,res){
                     res.statusCode = err.statusCode;
                     return res.send(config.statusCode.STATUS_ERROR);
                 }
-                if(result.rank<100)  result.rank = getRank(id);
+           		result.rank = result.rank - 1;
+                if(result.rank<100&&global.studentlist)  result.rank = getRank(id);
                 return res.send(result.rank+'');
             });
         });
@@ -155,7 +156,8 @@ exports.measureRank = function(req,res){
                 res.statusCode = err.statusCode;
                 return res.send(config.statusCode.STATUS_ERROR);
             }
-            if(result.rank<100)  result.rank = getRank(id);
+            result.rank = result.rank - 1;
+            if(result.rank<100&&global.studentlist)  result.rank = getRank(id);
             return res.send(result.rank+'');
         });
     }
@@ -198,10 +200,10 @@ function getOrderlist(){
 }
 
 function getRank(id){
-    if(!global.studentlist) return 0;
-    for(let student in global.studentlist){
-        if(student.id == id){
-            return student.rank;
+    for(let x in global.studentlist){
+        if(global.studentlist[x].id == id){
+           return global.studentlist[x].rank;
         }
     }
+    return global.studentlist.length-1;
 }
