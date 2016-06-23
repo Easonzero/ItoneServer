@@ -6,6 +6,7 @@ var homework = require('./routes/homework');
 var advice = require('./routes/advice');
 //var tribune = require('./routes/tribune');
 var constvar = require('./routes/constvar');
+var appman = require('./routes/app');
 
 module.exports = function(app){
   //转换json
@@ -40,6 +41,7 @@ module.exports = function(app){
   app.use('/homework',homework);
   //app.use('/QA',tribune);
   app.use('/base',constvar);
+  app.use('/app',appman);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

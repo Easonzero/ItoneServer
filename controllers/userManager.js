@@ -8,8 +8,8 @@ const updateOrderlistTask = require('../task/updateOrderlistTask');
  * Created by eason on 5/30/16.
  */
 exports.create = function(req,res){
-    var form = new multiparty.Form();
-    var ep = EventProxy.create();
+    let form = new multiparty.Form();
+    let ep = EventProxy.create();
 
     form.parse(req, ep.doneLater("after_parseFrom"));
 
@@ -18,28 +18,27 @@ exports.create = function(req,res){
         proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists",function (isUserExist) {
-            if(userinfo.picture == 'true'){
-                let uploadedPath = files.file[0].path;
-                userinfo.picture = '/res/user/' + userinfo.id + '/';
-                let savePath = __dirname+'/../public'+userinfo.picture;
-                if (!fs.existsSync(savePath)) {
-                    fs.mkdirSync(savePath);
-                }
-                fs.rename(uploadedPath, savePath + 'headPic.jpg');
-            }else{
-                userinfo.picture = '';
-            }
-            
             if (!isUserExist) {
-                proxy.create(userinfo,(err,result)=>{
-                    if(err) {
-                        console.log(err);
-                    return res.send(config.statusCode.STATUS_ERROR);
+            	if(userinfo.picture == 'true'){
+                	let uploadedPath = files.file[0].path;
+                	userinfo.picture = '/res/user/' + userinfo.id + '/';
+                	let savePath = __dirname+'/../public'+userinfo.picture;
+                	if (!fs.existsSync(savePath)) {
+                    	fs.mkdirSync(savePath);
+                	}
+                		fs.rename(uploadedPath, savePath + 'headPic.jpg');
+            		}else{
+                		userinfo.picture = '';
+            		}
+                	proxy.create(userinfo,(err,result)=>{
+                    	if(err) {
+                        	console.log(err);
+                    	return res.send(config.statusCode.STATUS_ERROR);
                     }
                     
                     return res.send(config.statusCode.STATUS_OK);
                 });
-            } else {
+            }else {
                 return res.send(config.statusCode.STATUS_ERROR);
             }
         });
@@ -65,32 +64,39 @@ exports.login = function(req, res) {
 };
 
 exports.modify = function(req,res){
-    var form = new multiparty.Form();
-    var ep = EventProxy.create();
+    let form = new multiparty.Form();
+    let ep = EventProxy.create();
 
     form.parse(req, ep.doneLater("after_parseFrom"));
 
     ep.once("after_parseFrom",function(fields, files) {
-        var userinfo = JSON.parse(fields.userInfo[0]);
+        let userinfo = JSON.parse(fields.userInfo[0]);
         proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
-        ep.once("after_checkUserExists", function (isUserExist) {
-            if (isUserExist) {
-                proxy.modify(userinfo,ep.doneLater("after_modifyUser"));
+        ep.once("after_checkUserExists",function (isUserExist) {
+            if (!isUserExist) {
+            	if(userinfo.picture == 'true'){
+                	let uploadedPath = files.file[0].path;
+                	userinfo.picture = '/res/user/' + userinfo.id + '/';
+                	let savePath = __dirname+'/../public'+userinfo.picture;
+                	if (!fs.existsSync(savePath)) {
+                    	fs.mkdirSync(savePath);
+                	}
+                		fs.rename(uploadedPath, savePath + 'headPic.jpg');
+            		}else{
+                		userinfo.picture = '';
+            		}
+                	proxy.modify(userinfo,(err,result)=>{
+                    	if(err) {
+                        	console.log(err);
+                    	return res.send(config.statusCode.STATUS_ERROR);
+                    }
+                    
+                    return res.send(config.statusCode.STATUS_OK);
+                });
             } else {
-                return callback(new ServerError(), null);
+                return res.send(config.statusCode.STATUS_ERROR);
             }
-        });
-
-        ep.once("after_modifyUser",function () {
-            if(userinfo.picture){
-                var uploadedPath = files.inputFile[0].path;
-                userinfo.picture = '..//res//user//' + userinfo.id + '//headPic.jpg';
-                fs.rename(uploadedPath, userinfo.picture);
-            }else{
-                userinfo.picture = null;
-            }
-            return res.send(config.statusCode.STATUS_OK);
         });
     });
 

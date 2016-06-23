@@ -33,6 +33,25 @@ exports.findUserById = function (userInfo, callback) {
     });
 };
 
+exports.modify = function(userInfo,callback){
+	if (!(userInfo.id && userInfo.passWords)) {
+        return callback(new InvalidParamError(), null);
+    }
+
+    mysqlClient.query({
+        sql     : 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class,picture:picture WHERE id = :id',
+        params  : {id:userInfo.id,userName:userInfo.userName,university:userInfo.university,
+            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture}
+        }, function (err, rows) {
+
+        if (err) {
+            return callback(err, null);
+        }
+
+        callback(null,null);
+    });
+}
+
 exports.getPluInfo = function (userInfo, callback) {
     mysqlClient.query({
         sql     : 'SELECT id,money,downloadNum ' +
