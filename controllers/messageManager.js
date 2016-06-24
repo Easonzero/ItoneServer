@@ -18,7 +18,7 @@ exports.getMessage = function(req, res) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
     req.body['university'] = req.session.user.university;
-    req.body['class'] = req.session.user.class;
+    req.body['Class'] = req.session.user.Class;
     proxy.findMessage(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;

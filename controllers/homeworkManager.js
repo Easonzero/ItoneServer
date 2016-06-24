@@ -19,12 +19,12 @@ exports.getHomework = function(req, res) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
     req.body['university'] = req.session.user.university;
-    req.body['class'] = req.session.user.class;
+    req.body['Class'] = req.session.user.Class;
     req.body['date'] = new Date().Format('yyyy-M-d');
     proxy.findHomework(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
-            return res.send(config.statusCode.STATUS_OK);
+            return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);
     });

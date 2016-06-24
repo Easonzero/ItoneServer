@@ -6,8 +6,8 @@ exports.describe = 'user test';
 
 exports.it = {
     //'register':register,
-    //'userbaseinfo':userbaseinfo,
-    //'userelseinfo':userelseinfo,
+    'userbaseinfo':userbaseinfo,
+    'userelseinfo':userelseinfo,
     'getrank':getrank,
     'usersbyorder':usersbyorder
 };

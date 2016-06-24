@@ -29,6 +29,7 @@ exports.findUserById = function (userInfo, callback) {
         if (err || !rows) {
             return callback(new ServerError(), null);
         }
+        rows[0].passWords = null;
         callback(null, rows[0]);
     });
 };
@@ -80,6 +81,7 @@ exports.login = function (userInfo, callback) {
         if (err || !rows) {
             return callback(new ServerError(), null);
         }
+        rows[0].passWords = null;
         callback(null, rows[0]);
     });
 };

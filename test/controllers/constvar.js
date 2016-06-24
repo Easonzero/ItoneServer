@@ -5,10 +5,10 @@ const app = require('../../app');
 exports.describe = 'constvar test';
 
 exports.it = {
-    //'course':course,
-    //'university':university,
-    //'class':vclass,
-    'sms':sms
+    'course':course,
+    'university':university,
+    'class':vclass,
+    //'sms':sms
 };
 
 function course(done){

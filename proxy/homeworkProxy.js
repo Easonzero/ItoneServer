@@ -19,7 +19,7 @@ exports.findHomework = function (homeworkItem, callback) {
     mysqlClient.query({
         sql     : "SELECT h.id,u.userName as uname,h.message,h.sdate,h.fdate,c.is,h.picUrl,c.name as course " +
         "FROM homework as h join user as u on h.uid = u.id join course as c on h.courseNo = c.id " +
-        "WHERE u.class = :class and u.university = :university and sdate < :date and fdate > :date",
+        "WHERE u.Class = :Class and u.university = :university and sdate < :date and fdate > :date",
         params  : homeworkItem
     }, function (err, rows) {
         if (err) {
