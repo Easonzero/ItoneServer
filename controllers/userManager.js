@@ -74,7 +74,7 @@ exports.modify = function(req,res){
         proxy.checkUserExists({id:userinfo.id}, ep.doneLater("after_checkUserExists"));
 
         ep.once("after_checkUserExists",function (isUserExist) {
-            if (!isUserExist) {
+            if (isUserExist) {
             	if(userinfo.picture == 'true'){
                 	let uploadedPath = files.file[0].path;
                 	userinfo.picture = '/res/user/' + userinfo.id + '/';
