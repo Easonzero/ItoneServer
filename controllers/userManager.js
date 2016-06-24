@@ -88,7 +88,7 @@ exports.modify = function(req,res){
             		}
                 	proxy.modify(userinfo,(err,result)=>{
                     	if(err) {
-                    	return res.send(err);//config.statusCode.STATUS_ERROR);
+                    	return res.send(config.statusCode.STATUS_ERROR);
                     }
                     req.session.user = result;
                     return res.send(config.statusCode.STATUS_OK);

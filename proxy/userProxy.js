@@ -35,12 +35,8 @@ exports.findUserById = function (userInfo, callback) {
 };
 
 exports.modify = function(userInfo,callback){
-	if (!(userInfo.id && userInfo.passWords)) {
-        return callback(new InvalidParamError(), null);
-    }
-
 	let info = {id:userInfo.id,userName:userInfo.userName,university:userInfo.university,
-            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo['Class'],picture:userInfo.picture};
+            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture};
 
     mysqlClient.query({
         sql     : 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class,picture=:picture WHERE id=:id',
@@ -96,7 +92,7 @@ exports.create = function(userInfo, callback){
     mysqlClient.query({
         sql     : 'INSERT INTO user VALUES(:id, :passWords, :userName, :university, :faculty, :grade, :Class, :picture)',
         params  : {id:userInfo.id,passWords:userInfo.passWords,userName:userInfo.userName,university:userInfo.university,
-            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo['Class'],picture:userInfo.picture}
+            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture}
         }, function (err, rows) {
 
         if (err) {
