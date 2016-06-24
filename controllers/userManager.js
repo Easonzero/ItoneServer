@@ -91,7 +91,7 @@ exports.modify = function(req,res){
                         	console.log(err);
                     	return res.send(config.statusCode.STATUS_ERROR);
                     }
-                    
+                    req.session.user = result;
                     return res.send(config.statusCode.STATUS_OK);
                 });
             } else {

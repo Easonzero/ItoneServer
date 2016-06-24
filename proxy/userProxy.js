@@ -39,17 +39,19 @@ exports.modify = function(userInfo,callback){
         return callback(new InvalidParamError(), null);
     }
 
+	let info = {id:userInfo.id,userName:userInfo.userName,university:userInfo.university,
+            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture};
+
     mysqlClient.query({
         sql     : 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class,picture=:picture WHERE id = :id',
-        params  : {id:userInfo.id,userName:userInfo.userName,university:userInfo.university,
-            faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture}
+        params  : info
         }, function (err, rows) {
 
         if (err) {
             return callback(err, null);
         }
 
-        callback(null,null);
+        callback(null,info);
     });
 }
 
