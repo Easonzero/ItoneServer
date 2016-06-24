@@ -43,7 +43,7 @@ exports.modify = function(userInfo,callback){
             faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture};
 
     mysqlClient.query({
-        sql     : 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class,picture=:picture WHERE id = :id',
+        sql     : 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class,picture=:picture WHERE id=:id',
         params  : info
         }, function (err, rows) {
 
