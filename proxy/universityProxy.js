@@ -4,7 +4,7 @@ var mysqlClient = require("../utils/sqlUtil");
  */
 exports.findAllUniversity = function (callback) {
     mysqlClient.query({
-        sql     : "SELECT * FROM university",
+        sql     : "SELECT name FROM university",
         params  : null
     }, function (err, result) {
         if (err||!result) {
@@ -17,7 +17,7 @@ exports.findAllUniversity = function (callback) {
 
 exports.findUniversity = function (id, callback) {
     mysqlClient.query({
-        sql     : "SELECT * FROM university WHERE id = :id",
+        sql     : "SELECT name FROM university WHERE id = :id",
         params  : id
     }, function (err, result) {
         if (err||!result) {
@@ -30,8 +30,34 @@ exports.findUniversity = function (id, callback) {
 
 exports.findCourseByUniversity = function (fromUniversity, callback) {
     mysqlClient.query({
-        sql     : "SELECT * FROM course WHERE fromUniversity = :fromUniversity",
+        sql     : "SELECT name FROM course WHERE fromUniversity = :fromUniversity",
         params  : fromUniversity
+    }, function (err, result) {
+        if (err||!result) {
+            return callback(DBError(), null);
+        }
+
+        callback(null, result);
+    });
+};
+
+exports.findClass = function (callback) {
+    mysqlClient.query({
+        sql     : "SELECT distinct name FROM class",
+        params  : null
+    }, function (err, result) {
+        if (err||!result) {
+            return callback(DBError(), null);
+        }
+
+        callback(null, result);
+    });
+};
+
+exports.findClassByFaculty = function (fromFaculty, callback) {
+    mysqlClient.query({
+        sql     : "SELECT distinct name FROM class WHERE fromFaculty = :fromFaculty",
+        params  : fromFaculty
     }, function (err, result) {
         if (err||!result) {
             return callback(DBError(), null);
@@ -43,7 +69,46 @@ exports.findCourseByUniversity = function (fromUniversity, callback) {
 
 exports.findClassByUniversity = function (fromUniversity, callback) {
     mysqlClient.query({
-        sql     : "SELECT * FROM class WHERE fromUniversity = :fromUniversity",
+        sql     : "SELECT name FROM class WHERE fromUniversity = :fromUniversity",
+        params  : fromUniversity
+    }, function (err, result) {
+        if (err||!result) {
+            return callback(DBError(), null);
+        }
+
+        callback(null, result);
+    });
+};
+
+exports.findClassByfu = function (params, callback) {
+    mysqlClient.query({
+        sql     : "SELECT name FROM class WHERE ffromUniversity = :fromUniversity and fromFaculty = :fromFaculty",
+        params  : params
+    }, function (err, result) {
+        if (err||!result) {
+            return callback(DBError(), null);
+        }
+
+        callback(null, result);
+    });
+};
+
+exports.findFaculty = function (callback) {
+    mysqlClient.query({
+        sql     : "SELECT distinct fromFaculty as name FROM class",
+        params  : null
+    }, function (err, result) {
+        if (err||!result) {
+            return callback(DBError(), null);
+        }
+
+        callback(null, result);
+    });
+};
+
+exports.findFacultyByUniversity = function (fromUniversity, callback) {
+    mysqlClient.query({
+        sql     : "SELECT fromFaculty as name FROM class WHERE fromUniversity = :fromUniversity",
         params  : fromUniversity
     }, function (err, result) {
         if (err||!result) {

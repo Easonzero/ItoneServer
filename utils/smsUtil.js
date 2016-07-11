@@ -22,7 +22,8 @@ function initSmsUtil(){
         uid:'dw7n0VIwcYXi',
         pas:'9rxvjuaj',
         mob:'',
-        con:'',
+        cid:'kMNysNpM5awJ',
+        p1:'',
         type:'json'
     };
 }
@@ -34,10 +35,7 @@ function send(){
     let req = http.request(options,function(res){
     	res.setEncoding('utf8');
     	res.on('data', function (chunk) {
-        	//console.log(JSON.parse(chunk));
-    	});
-    	res.on('end',function(){
-        	//console.log('over');
+        	//callback(JSON.parse(chunk));
     	});
     });
     req.write(content);
@@ -57,7 +55,7 @@ exports.sendSms = (mob,callback)=>{
         ckn+=Math.floor(Math.random()*10);
     }
     postData.mob = mob;
-    postData.con = `【微米】您的短信验证码：${ckn}`;
+    postData.p1 = ckn;
     
     callback(ckn);
     send();

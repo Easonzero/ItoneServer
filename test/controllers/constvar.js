@@ -5,10 +5,11 @@ const app = require('../../app');
 exports.describe = 'constvar test';
 
 exports.it = {
-    'course':course,
+    //'course':course,
     'university':university,
     'class':vclass,
-    //'sms':sms
+    'faculty':faculty,
+    'sms':sms
 };
 
 function course(done){
@@ -31,10 +32,22 @@ function university(done){
 
 function vclass(done){
     let param = {
-        fromUniversity        : "哈尔滨工业大学"
+        fromUniversity        : "哈尔滨工业大学",
+        faculty               : "软件工程"
     };
 
     app.client().request('post','/base/class').setBody(param).end(function (res) {
+        console.dir(res.body);
+        done();
+    });
+}
+
+function faculty(done){
+    let param = {
+        fromUniversity        : "哈尔滨工业大学"
+    };
+
+    app.client().request('post','/base/faculty').setBody(param).end(function (res) {
         console.dir(res.body);
         done();
     });

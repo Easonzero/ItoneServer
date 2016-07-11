@@ -7,5 +7,6 @@ router.post('/sms',controller.sms);
 router.post('/course', controller.course);
 router.post('/class', controller.class);
 router.get('/university',controller.university);
+router.post('/faculty',controller.faculty);
 
 module.exports = router;
