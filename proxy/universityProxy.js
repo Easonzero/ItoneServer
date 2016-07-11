@@ -82,7 +82,7 @@ exports.findClassByUniversity = function (fromUniversity, callback) {
 
 exports.findClassByfu = function (params, callback) {
     mysqlClient.query({
-        sql     : "SELECT name FROM class WHERE ffromUniversity = :fromUniversity and fromFaculty = :fromFaculty",
+        sql     : "SELECT name FROM class WHERE fromUniversity = :fromUniversity and fromFaculty = :fromFaculty",
         params  : params
     }, function (err, result) {
         if (err||!result) {
@@ -108,7 +108,7 @@ exports.findFaculty = function (callback) {
 
 exports.findFacultyByUniversity = function (fromUniversity, callback) {
     mysqlClient.query({
-        sql     : "SELECT fromFaculty as name FROM class WHERE fromUniversity = :fromUniversity",
+        sql     : "SELECT distinct fromFaculty as name FROM class WHERE fromUniversity = :fromUniversity",
         params  : fromUniversity
     }, function (err, result) {
         if (err||!result) {

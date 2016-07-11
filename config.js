@@ -15,7 +15,7 @@ function initConfig() {
             "password"  : "123",
             "database"  : "itone"
         },*/
-        
+
         sessionConfig     : {
             secret      : '123456',
             resave      : false,
@@ -28,7 +28,7 @@ function initConfig() {
         statusCode        : {
             STATUS_OK              : 'ok',
             STATUS_ERROR           : 'error',
-            STATUS_NOTFOUND           : 1, 
+            STATUS_NOTFOUND           : 1,
             STATUS_SERVER_ERROR       : 2,
             STATUS_INVAILD_PARAMS     : 3,
             STATUS_DBERROR            : 4

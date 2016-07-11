@@ -44,7 +44,7 @@ function vclass(done){
 
 function faculty(done){
     let param = {
-        fromUniversity        : "哈尔滨工业大学"
+        fromUniversity        : "*"
     };
 
     app.client().request('post','/base/faculty').setBody(param).end(function (res) {
