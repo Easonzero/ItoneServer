@@ -82,6 +82,7 @@ exports.modify = function(req,res){
                 	if (!fs.existsSync(savePath)) {
                     	fs.mkdirSync(savePath);
                 	}
+                	fs.unlink(savePath + 'headPic.jpg');
                 	fs.rename(uploadedPath, savePath + 'headPic.jpg');
             		}else{
                 		userinfo.picture = 'false';
