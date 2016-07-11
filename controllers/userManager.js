@@ -82,13 +82,7 @@ exports.modify = function(req,res){
                 	if (!fs.existsSync(savePath)) {
                     	fs.mkdirSync(savePath);
                 	}
-                	fs.exists(savePath + 'headPic.jpg', function( exists ){
-    					if(exists){
-    						fs.writeFileSync(uploadedPath, fs.readFileSync(savePath + 'headPic.jpg'));
-    					}else{
-    						fs.rename(uploadedPath, savePath + 'headPic.jpg');
-    					}
-					});
+                	fs.rename(uploadedPath, savePath + 'headPic.jpg');
             		}else{
                 		userinfo.picture = 'false';
             		}
