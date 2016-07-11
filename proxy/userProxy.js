@@ -40,7 +40,7 @@ exports.modify = function(userInfo,callback){
             
    	let sql = 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class';
    	
-   	if(picture=='false') sql += ' WHERE id=:id';
+   	if(info.picture=='false') sql += ' WHERE id=:id';
    	else sql += ',picture=:picture WHERE id=:id';
 
     mysqlClient.query({
