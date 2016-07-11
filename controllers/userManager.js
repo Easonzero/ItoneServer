@@ -64,6 +64,10 @@ exports.login = function(req, res) {
 };
 
 exports.modify = function(req,res){
+	if (!req.session||!req.session.user) {
+        return res.send(config.statusCode.STATUS_ERROR);
+    }
+
     let form = new multiparty.Form();
     let ep = EventProxy.create();
 
@@ -93,6 +97,7 @@ exports.modify = function(req,res){
                     	if(err) {
                     	return res.send(config.statusCode.STATUS_ERROR);
                     }
+                    result.picture = req.session.user.picture;
                     req.session.user = result;
                     return res.send(config.statusCode.STATUS_OK);
                 });
