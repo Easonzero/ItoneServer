@@ -84,7 +84,7 @@ exports.modify = function(req,res){
                 	}
                 		fs.rename(uploadedPath, savePath + 'headPic.jpg');
             		}else{
-                		userinfo.picture = '';
+                		userinfo.picture = 'false';
             		}
                 	proxy.modify(userinfo,(err,result)=>{
                     	if(err) {

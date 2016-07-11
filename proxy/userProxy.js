@@ -37,9 +37,14 @@ exports.findUserById = function (userInfo, callback) {
 exports.modify = function(userInfo,callback){
 	let info = {id:userInfo.id,userName:userInfo.userName,university:userInfo.university,
             faculty:userInfo.faculty,grade:userInfo.grade,Class:userInfo.Class,picture:userInfo.picture};
+            
+   	let sql = 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class';
+   	
+   	if(picture==false) sql += ' WHERE id=:id';
+   	else sql += ',picture=:picture WHERE id=:id';
 
     mysqlClient.query({
-        sql     : 'UPDATE user SET userName=:userName, university=:university,faculty=:faculty,grade=:grade,Class=:Class,picture=:picture WHERE id=:id',
+        sql     : sql,
         params  : info
         }, function (err, rows) {
 
