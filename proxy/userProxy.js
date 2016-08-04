@@ -58,7 +58,7 @@ exports.modify = function(userInfo,callback){
 
 exports.getPluInfo = function (userInfo, callback) {
     mysqlClient.query({
-        sql     : 'SELECT id,money,downloadNum ' +
+        sql     : 'SELECT id,money,downloadNum,isMonitor ' +
         'FROM userplus WHERE id = :id',
         params  : userInfo
     }, function (err, rows) {

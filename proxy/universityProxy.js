@@ -30,7 +30,7 @@ exports.findUniversity = function (id, callback) {
 
 exports.findCourseByUniversity = function (fromUniversity, callback) {
     mysqlClient.query({
-        sql     : "SELECT name FROM course WHERE fromUniversity = :fromUniversity",
+        sql     : "SELECT id,name FROM course WHERE fromUniversity = :fromUniversity",
         params  : fromUniversity
     }, function (err, result) {
         if (err||!result) {
