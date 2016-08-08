@@ -63,6 +63,7 @@ exports.getPluInfo = function (userInfo, callback) {
         params  : userInfo
     }, function (err, rows) {
         if (err || !rows) {
+            console.log(err)
             return callback(new ServerError(), null);
         }
         callback(null, rows[0]);
