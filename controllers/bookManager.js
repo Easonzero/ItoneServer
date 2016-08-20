@@ -17,13 +17,23 @@ exports.search = function(req, res) {
 };
 
 exports.booksBySubject = function(req, res) {
-    proxy.findBookBySubject(req.body,function (err,result) {
+	if(req.body.category==undefined){
+	proxy.findBookBySubject(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
             return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);
     });
+	}else{
+	proxy.findBookByCategory(req.body,function (err,result) {
+        if (err) {
+            res.statusCode = err.statusCode;
+            return res.send(config.statusCode.STATUS_ERROR);
+        }
+        return res.send(result);
+    });
+	}
 };
 
 exports.userbooks = function(req, res) {

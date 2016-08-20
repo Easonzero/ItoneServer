@@ -41,6 +41,27 @@ exports.findBookBySubject = function (findItem, callback) {
     });
 };
 
+exports.findBookByCategory = function(findItem,callback){
+	let start = parseInt(findItem.start);
+    let end = start + 10;
+    let sql = 'SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count,' +
+                'b.downloadNumber,u.userName as uploader,b.uid,b.money,b.pic ' +
+                'FROM books as b join user as u on b.uid = u.id ';
+    if(findItem.subject == '*') sql += 'WHERE b.fromUniversity = :fromUniversity and b.category = :category LIMIT '+start+','+end;
+    else sql += 'WHERE b.subject = :subject AND b.fromUniversity = :fromUniversity and b.category = :category LIMIT '+start+','+end;
+    mysqlClient.query({
+        sql     : sql,
+        params  : findItem
+    }, function (err, rows) {
+        if (err) {
+            console.log(err);
+            return callback(new DBError(), null);
+        }
+
+        callback(null, rows);
+    });
+}
+
 exports.findBookByUploader = function (findItem, callback) {
     mysqlClient.query({
         sql     : "SELECT b.id,b.bookName,b.category,b.subject,b.occupation,b.fromUniversity,b.count," +

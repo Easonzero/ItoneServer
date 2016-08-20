@@ -20,7 +20,7 @@ exports.it = {
     //'register':register,
    // 'userbaseinfo':userbaseinfo,
     'userelseinfo':userelseinfo,
-    'getrank':getrank,
+    //'getrank':getrank,
    // 'usersbyorder':usersbyorder
 };
 

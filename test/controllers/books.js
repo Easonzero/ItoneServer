@@ -40,6 +40,7 @@ function booklist(done){
     let param = {
         subject          : '*',
         fromUniversity   : '哈尔滨工业大学',
+        category		 : '课本',
         start            : 0
     };
 
