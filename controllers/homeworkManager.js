@@ -27,8 +27,8 @@ exports.sendHomework = function(req, res) {
         }else{
             homework.picUrl = '';
         }
-
-        proxy.addHomework(req.body,function (err,result) {
+    
+        proxy.addHomework(homework,function (err,result) {
             if (err) {
                 res.statusCode = err.statusCode;
                 return res.send(config.statusCode.STATUS_ERROR);
@@ -36,7 +36,7 @@ exports.sendHomework = function(req, res) {
             return res.send(config.statusCode.STATUS_OK);
         });
     });
-
+    
     ep.fail(function (err) {
         return res.send(config.statusCode.STATUS_ERROR);
     });

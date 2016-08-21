@@ -9,13 +9,13 @@ const fs = require("fs");
 exports.sendMessage = function(req, res) {
     let form = new multiparty.Form();
     let ep = EventProxy.create();
-
-    form.parse(req, ep.doneLater("after_parseFrom"));
-
+    
+    form.parse(req,ep.doneLater("after_parseFrom"));
+    
     ep.once("after_parseFrom",function(fields, files) {
         let message = JSON.parse(fields.message[0]);
         message.date = new Date().Format('yyyy-M-d');
-
+    
         if(message.picUrl == 'true'){
             let uploadedPath = files.file[0].path;
             message.picUrl = '/res/message/' + message.uid + message.date +  '/';
@@ -27,7 +27,7 @@ exports.sendMessage = function(req, res) {
         }else{
             message.picUrl = '';
         }
-        proxy.addMessage(req.body,function (err,result) {
+        proxy.addMessage(message,function (err,result) {
             if (err) {
                 res.statusCode = err.statusCode;
                 return res.send(config.statusCode.STATUS_ERROR);
@@ -35,7 +35,7 @@ exports.sendMessage = function(req, res) {
             return res.send(config.statusCode.STATUS_OK);
         });
     });
-
+    
     ep.fail(function (err) {
         return res.send(config.statusCode.STATUS_ERROR);
     });

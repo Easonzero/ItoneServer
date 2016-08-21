@@ -44,8 +44,41 @@ Request.prototype.request = function(method, path){
     return this;
 };
 
+Request.prototype.mutipart = function(params){
+    const boundary = "---------------------------leon";
+    let formStr = '';
+
+    const formEnd = '\r\n--' + boundary + '--\r\n';
+
+    for(let index in params){
+        formStr += '--' + boundary
+            + '\r\n'
+            + 'Content-Disposition: form-data; name="'
+            + index + '"'
+            + '\r\n\r\n'
+            + JSON.stringify(params[index])
+            + '\r\n'
+            + '--' + boundary;
+    }
+    
+    formStr += '--' + boundary
+    + '\r\n'
+    + 'Content-Disposition: form-data; name="upfile"; filename="xxx.jpg"'
+    + '\r\n'
+    + 'Content-Type: application/octet-stream'
+    + '\r\n\r\n';
+
+    this.set('Content-Type', 'multipart/form-data; boundary='+boundary);
+    this.set('Content-Length',formStr.length+formEnd.length);
+
+    this.data.push(formStr);
+    this.data.push(formEnd);
+    console.log(formStr);
+    return this;
+};
+
 Request.prototype.end = function(fn){
-    var req = http.request({
+    let req = http.request({
         method: this.method,
         port: this.addr.port||'',
         host: this.addr.address,
@@ -88,7 +121,7 @@ Request.prototype.end = function(fn){
             fn(res);
         });
     });
-
+    
     req.end();
 
     return this;

@@ -11,7 +11,7 @@ exports.addHomework = function (homeworkItem, callback) {
             return callback(DBError(), null);
         }
 
-        callback(null, null);
+        callback(null, rows);
     });
 };
 

@@ -5,20 +5,22 @@ const app = require('../../app');
 exports.describe = 'message test';
 
 exports.it = {
-    //'sendMessage':sendMessage,
-    'getMessage':getMessage
+    'sendMessage':sendMessage,
+    //'getMessage':getMessage
 };
 
 function sendMessage(done){
     let param = {
-        uid         : '13115511080',
-        message     : 'test',
-        date        : '2016-5-10',
-        category    : '教室变更',
-        picUrl      : 'NULL'
+        message:{
+            uid         : '13115511080',
+            message     : 'test message',
+            date        : '2016-5-10',
+            category    : 'class_change',
+            picUrl      : 'false'
+        }
     };
 
-    app.client().request('post','/message/send').setBody(param).end(function (res) {
+    app.client().request('post','/message/send').mutipart(param).end(function (res) {
         console.dir(res.body);
         done();
     });

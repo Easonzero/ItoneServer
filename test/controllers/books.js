@@ -5,10 +5,10 @@ const app = require('../../app');
 exports.describe = 'book test';
 
 exports.it = {
-    'search':search,
+    //'search':search,
     'booklist':booklist,
-    'download':download,
-    'userbooks':userbooks
+    //'download':download,
+    //'userbooks':userbooks
 };
 
 // POST /books/search 200 17.866 ms - 225
@@ -39,8 +39,8 @@ function search(done){
 function booklist(done){
     let param = {
         subject          : '*',
-        fromUniversity   : '哈尔滨工业大学',
-        category		 : '课本',
+        fromUniversity   : '吉林艺术学院',
+        //category		 : '学霸笔记',
         start            : 0
     };
 
