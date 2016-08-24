@@ -17,25 +17,49 @@ exports.describe = 'user test';
 // '2'
 
 exports.it = {
-    //'register':register,
+    'register':register,
    // 'userbaseinfo':userbaseinfo,
-    'userelseinfo':userelseinfo,
+    //'userelseinfo':userelseinfo,
     //'getrank':getrank,
    // 'usersbyorder':usersbyorder
 };
 
+/*
+ header:
+ 
+ Content-Type:multipart/form-data; boundary=---------------------------leon
+ Content-Length:38839
+ 
+ body:
+ 
+ -----------------------------leon
+ Content-Disposition: form-data; name="userInfo"
+
+ {"id":"3258954536","passWords":"qwe123","userName":"name","university":"university","faculty":"faculty","grade":"2015级","Class":"1437104","picture":"false"}
+ -----------------------------leon
+ Content-Disposition: form-data; name="upfile"; filename="xxx.jpg"
+ Content-Type: application/octet-stream
+
+
+ -----------------------------leon--
+ */
+
 function register(done){
     let param = {
-        id               : "15528756693",
-        passWords        : 'qwe123',
-        userName         : '萧凉',
-        fromUniversity   : '哈尔滨工业大学',
-        faculty          : '软件工程',
-        grade            : '本二',
-        picture          : false
+        userInfo:{
+            id               : "3258954536",
+            passWords        : 'qwe123',
+            userName         : 'name',
+            university       : 'university',
+            faculty          : 'faculty',
+            grade            : '2015级',
+            Class            : '1437104',
+            picture          : 'false'
+        }
     };
 
-    app.client().request('post','/users/register').setBody(param).end(function (res) {
+    app.client().request('post','/users/register').mutipart(param).end(function (res) {
+        console.dir(res.body);
         done();
     });
 }

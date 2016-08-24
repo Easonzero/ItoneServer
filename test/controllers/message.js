@@ -9,6 +9,28 @@ exports.it = {
     //'getMessage':getMessage
 };
 
+/*
+ 
+ header:
+ 
+ Content-Type:multipart/form-data; boundary=---------------------------leon
+ Content-Length:33939
+ 
+ body:
+ 
+ -----------------------------leon
+ Content-Disposition: form-data; name="message"
+
+ {"uid":"13115511080","message":"test message","date":"2016-5-10","category":"class_change","picUrl":"false"}
+ -----------------------------leon
+ Content-Disposition: form-data; name="upfile"; filename="xxx.jpg"
+ Content-Type: application/octet-stream
+
+
+ -----------------------------leon--
+
+ */
+
 function sendMessage(done){
     let param = {
         message:{

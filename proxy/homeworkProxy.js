@@ -23,7 +23,7 @@ exports.findHomework = function (homeworkItem, callback) {
         params  : homeworkItem
     }, function (err, rows) {
         if (err) {
-            return callback(DBError(),null);
+            return callback(err,null);
         }
 
         callback(null, rows);

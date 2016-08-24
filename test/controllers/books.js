@@ -40,7 +40,7 @@ function booklist(done){
     let param = {
         subject          : '*',
         fromUniversity   : '吉林艺术学院',
-        //category		 : '学霸笔记',
+        category		 : 'ppt',
         start            : 0
     };
 

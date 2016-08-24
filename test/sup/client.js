@@ -57,8 +57,7 @@ Request.prototype.mutipart = function(params){
             + index + '"'
             + '\r\n\r\n'
             + JSON.stringify(params[index])
-            + '\r\n'
-            + '--' + boundary;
+            + '\r\n';
     }
     
     formStr += '--' + boundary
@@ -73,7 +72,11 @@ Request.prototype.mutipart = function(params){
 
     this.data.push(formStr);
     this.data.push(formEnd);
-    console.log(formStr);
+    console.log('header:');
+    console.log('Content-Type:'+'multipart/form-data; boundary='+boundary);
+    console.log('Content-Length:'+formStr.length+formEnd.length);
+    console.log('body:');
+    console.log(formStr+formEnd);
     return this;
 };
 

@@ -54,11 +54,10 @@ exports.findBookByCategory = function(findItem,callback){
         params  : findItem
     }, function (err, rows) {
         if (err) {
-            console.log(err);
             return callback(new DBError(), null);
         }
 
-        callback(null, rows);
+        callback(null, sql);
     });
 }
 

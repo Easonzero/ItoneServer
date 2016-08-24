@@ -9,6 +9,28 @@ exports.it = {
     //'getHomework':getHomework,
 };
 
+/*
+
+ header:
+
+ Content-Type:multipart/form-data; boundary=---------------------------leon
+ Content-Length:35139
+
+ body:
+
+ -----------------------------leon
+ Content-Disposition: form-data; name="homework"
+
+ {"uid":"13115511080","message":"test homework","sdate":"2016-5-10","fdate":"2016-6-28","courseNo":"1","picUrl":"false"}
+ -----------------------------leon
+ Content-Disposition: form-data; name="upfile"; filename="xxx.jpg"
+ Content-Type: application/octet-stream
+
+
+ -----------------------------leon--
+
+ */
+
 function sendHomework(done){
     let param = {
         homework:{
@@ -29,7 +51,7 @@ function sendHomework(done){
 
 function getHomework(done){
     let param = {
-        id              : '13115511080'
+        id              : '15943709229'
     };
 
     app.client().request('post','/homework/getHomework').setBody(param).end(function (res) {
