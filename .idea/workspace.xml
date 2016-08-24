@@ -70,7 +70,6 @@
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/routes.js" />
         <option value="$PROJECT_DIR$/routes/books.js" />
-        <option value="$PROJECT_DIR$/proxy/bookProxy.js" />
         <option value="$PROJECT_DIR$/test/sup/http.js" />
         <option value="$PROJECT_DIR$/utils/sqlUtil.js" />
         <option value="$PROJECT_DIR$/proxy/smsProxy.js" />
@@ -91,7 +90,6 @@
         <option value="$PROJECT_DIR$/test/controllers/constvar.js" />
         <option value="$PROJECT_DIR$/test/controllers/books.js" />
         <option value="$PROJECT_DIR$/proxy/homeworkProxy.js" />
-        <option value="$PROJECT_DIR$/controllers/homeworkManager.js" />
         <option value="$PROJECT_DIR$/controllers/messageManager.js" />
         <option value="$PROJECT_DIR$/test/sup/client.js" />
         <option value="$PROJECT_DIR$/proxy/userProxy.js" />
@@ -101,6 +99,8 @@
         <option value="$PROJECT_DIR$/test/controllers/message.js" />
         <option value="$PROJECT_DIR$/test/controllers/homework.js" />
         <option value="$PROJECT_DIR$/config.js" />
+        <option value="$PROJECT_DIR$/proxy/bookProxy.js" />
+        <option value="$PROJECT_DIR$/controllers/homeworkManager.js" />
       </list>
     </option>
   </component>
@@ -390,7 +390,7 @@
       <workItem from="1470624432063" duration="304000" />
       <workItem from="1471761385625" duration="8123000" />
       <workItem from="1471848554380" duration="28000" />
-      <workItem from="1472054275119" duration="2838000" />
+      <workItem from="1472054275119" duration="3044000" />
     </task>
     <task id="LOCAL-00001" summary="修改下载功能，将下载的检测和传输数据分割开">
       <created>1465860209055</created>
@@ -417,7 +417,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168645000" />
+    <option name="totallyTimeSpent" value="168851000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -733,48 +733,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/messageManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/homeworkManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/sup/client.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="569">
           <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proxy/homeworkProxy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proxy/bookProxy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proxy/userProxy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1944">
-          <caret line="108" column="23" selection-start-line="108" selection-start-column="23" selection-end-line="108" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -823,6 +785,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/bookProxy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/homeworkProxy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/userProxy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="108" column="23" selection-start-line="108" selection-start-column="23" selection-end-line="108" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/homeworkManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/messageManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="34" column="57" selection-start-line="21" selection-start-column="65" selection-end-line="34" selection-end-column="57" />
           <folding />
         </state>
       </provider>

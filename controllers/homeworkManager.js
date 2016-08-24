@@ -52,7 +52,7 @@ exports.getHomework = function(req, res) {
     proxy.findHomework(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
-            return res.send(err);//config.statusCode.STATUS_ERROR);
+            return res.send(config.statusCode.STATUS_ERROR);
         }
         return res.send(result);
     });

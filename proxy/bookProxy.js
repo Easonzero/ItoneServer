@@ -57,7 +57,7 @@ exports.findBookByCategory = function(findItem,callback){
             return callback(new DBError(), null);
         }
 
-        callback(null, sql);
+        callback(null, rows);
     });
 }
 
