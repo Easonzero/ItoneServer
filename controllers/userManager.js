@@ -123,7 +123,7 @@ exports.plusInfo = function(req,res){
     if (!req.session||!req.session.user) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
-    if(req.session.userPlu){
+    if(req.session.userPlu&&req.session.userPlu.id == req.session.user.id){
         return res.send(req.session.userPlu);
     }
     var id = req.session.user.id;

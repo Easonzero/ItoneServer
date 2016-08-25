@@ -47,7 +47,7 @@ exports.it = {
 function register(done){
     let param = {
         userInfo:{
-            id               : "3258954536",
+            id               : "42589545368",
             passWords        : 'qwe123',
             userName         : 'name',
             university       : 'university',

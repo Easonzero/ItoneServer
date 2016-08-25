@@ -2,8 +2,8 @@ const app = require('../app');
 const controllers = [
     require('./controllers/users'),
     //require('./controllers/books'),
-    require('./controllers/message'),
-    require('./controllers/homework'),
+    //require('./controllers/message'),
+    //require('./controllers/homework'),
     //require('./controllers/constvar'),
     //require('./controllers/app')
 ];
