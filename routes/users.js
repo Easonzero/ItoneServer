@@ -17,4 +17,8 @@ router.get("/logout",controller.logout);
 
 router.get("/usersbyorder",controller.sortUsers);
 
+router.get("/modify/password",controller.modifyPasswords);
+
+router.post("/userexists",controller.checkUserExists);
+
 module.exports = router;
