@@ -52,7 +52,7 @@ exports.login = function(req, res) {
     if (!req.session) {
         return res.send(config.statusCode.STATUS_ERROR);
     }
-    
+
     proxy.login(req.body,function(err,result){
         if (err||!result) {
             return res.send(config.statusCode.STATUS_ERROR);
@@ -108,6 +108,27 @@ exports.modify = function(req,res){
 
     ep.fail(function (err) {
         return res.send(config.statusCode.STATUS_ERROR);
+    });
+};
+
+exports.checkUserExists = function(req,res){
+    proxy.checkUserExists(req.body,function (err,isUserExist) {
+        if (err) {
+            res.statusCode = err.statusCode;
+            return res.send(config.statusCode.STATUS_ERROR);
+        }
+        return res.send(isUserExist);
+    });
+};
+
+exports.modifyPasswords = function(req,res){
+    if(!req.session.ckn||req.session.ckn!=req.body.ckn) return res.send(config.statusCode.STATUS_ERROR);
+    proxy.modifyPasswords(req.body,function (err,result) {
+        if (err) {
+            res.statusCode = err.statusCode;
+            return res.send(config.statusCode.STATUS_ERROR);
+        }
+        return res.send(result);
     });
 };
 

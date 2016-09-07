@@ -61,6 +61,7 @@ exports.class = function(req, res) {
 
 exports.sms = function(req, res) {
     sms.sendSms(req.body.mob,(ckn,data)=>{
+        req.session.ckn = ckn;
         res.send(ckn);
     });
 };

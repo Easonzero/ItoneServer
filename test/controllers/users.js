@@ -17,7 +17,7 @@ exports.describe = 'user test';
 // '2'
 
 exports.it = {
-    'register':register,
+    //'register':register,
    // 'userbaseinfo':userbaseinfo,
     //'userelseinfo':userelseinfo,
     //'getrank':getrank,

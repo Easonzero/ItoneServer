@@ -52,9 +52,23 @@ exports.modify = function(userInfo,callback){
             return callback(err, null);
         }
 
-        callback(null,info);
+        callback(null,rows.affectedRows!==0);
     });
-}
+};
+
+exports.modifyPasswords = function(modiftItem,callback){
+    mysqlClient.query({
+        sql     : 'UPDATE user SET passWords=:passWords WHERE id=:id',
+        params  : modiftItem
+    }, function (err, rows) {
+
+        if (err) {
+            return callback(err, null);
+        }
+
+        callback(null,rows.affectedRows!==0);
+    });
+};
 
 exports.getPluInfo = function (userInfo, callback) {
     mysqlClient.query({
