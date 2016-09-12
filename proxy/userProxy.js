@@ -120,7 +120,7 @@ exports.create = function(userInfo, callback){
         }
 
         mysqlClient.query({
-            sql     : `INSERT INTO userplus VALUES(:id,50,0,'FALSE')`,
+            sql     : `INSERT INTO userplus VALUES(:id,100,0,'FALSE')`,
             params  : {id:userInfo.id}
         }, (err, result)=>{
             if (err) {
