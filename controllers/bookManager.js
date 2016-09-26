@@ -68,3 +68,13 @@ exports.download = function(req, res) {
         });
     });
 };
+
+exports.watch = function(req, res){
+	proxy.getUrl(req.body,function(err,url){
+	    	if(err){
+	    		res.statusCode = err.statusCode;
+            	return res.send(config.statusCode.STATUS_ERROR);
+	    	}
+	return res.send(url);
+        });
+}
