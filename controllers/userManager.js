@@ -122,7 +122,7 @@ exports.checkUserExists = function(req,res){
 };
 
 exports.modifyPasswords = function(req,res){
-    if(!req.session.ckn||req.session.ckn!=req.body.ckn) return res.send(config.statusCode.STATUS_ERROR);
+    //if(!req.session.ckn||req.session.ckn!=req.body.ckn) return res.send(config.statusCode.STATUS_ERROR);
     proxy.modifyPasswords(req.body,function (err,result) {
         if (err) {
             res.statusCode = err.statusCode;
